@@ -1,37 +1,28 @@
-import React from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import { useTheme } from '@react-navigation/native';
-import GOOGLE_MAP_API from '../API';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+export default
 
-const containerStyle = {
-    width: '100%',
-    height: '100%'
-};
+class MapScreen extends React.Component {
+    render() {
+        return (
+            <MapView
+        style={{ flex: 1 }}
 
-const center = {
-    lat: 45.042768,
-    lng: 3.882936
-};
+        provider={PROVIDER_GOOGLE}
 
-const MapScreen = ({navigation}:any) => {
+        showsUserLocation
 
-    const { colors } = useTheme();
-    const theme = useTheme();
-    
-    return (
-        <LoadScript
-            googleMapsApiKey= {GOOGLE_MAP_API}
-        >
-            <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
-            >
-                { /* Child components, such as markers, info windows, etc. */}
-                <></>
-            </GoogleMap>
-        </LoadScript>
-    );
-};
+        initialRegion={{
 
-export default MapScreen;
+            latitude: 37.78825,
+
+            longitude: -122.4324,
+
+            latitudeDelta: 0.0922,
+
+            longitudeDelta: 0.0421}}
+
+            ></MapView>
+    );}
+}
