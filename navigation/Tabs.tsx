@@ -25,7 +25,7 @@ const CustomTabBarButton = ({children, onPress}: any) => (
             width: 70,
             height: 70,
             borderRadius: 35,
-            backgroundColor: '#e32f45'
+            backgroundColor: '#0f7eaa'
         }}>
             {children}
         </View>
@@ -47,11 +47,11 @@ const Tabs = () => {
                             style={{
                                 width: 20,
                                 height: 20,
-                                tintColor: focused ? '#e32f45' : '#748c94',
+                                tintColor: focused ? '#0f7eaa' : '#748c94',
                             }}
                         />
                         <Text
-                            style={{color: focused ? '#e32f45' : '#748c94', fontSize: 12, marginBottom: 10,}}>
+                            style={{color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10,}}>
                             Map
                         </Text>
                     </View>
@@ -68,11 +68,11 @@ const Tabs = () => {
                             style={{
                                 width: 20,
                                 height: 20,
-                                tintColor: focused ? '#e32f45' : '#748c94',
+                                tintColor: focused ? '#0f7eaa' : '#748c94',
                             }}
                         />
                         <Text
-                            style={{color: focused ? '#e32f45' : '#748c94', fontSize: 12, marginBottom: 10,}}>
+                            style={{color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10,}}>
                             Find
                         </Text>
                     </View>
@@ -107,11 +107,11 @@ const Tabs = () => {
                             style={{
                                 width: 20,
                                 height: 20,
-                                tintColor: focused ? '#e32f45' : '#748c94',
+                                tintColor: focused ? '#0f7eaa' : '#748c94',
                             }}
                         />
                         <Text
-                            style={{color: focused ? '#e32f45' : '#748c94', fontSize: 12, marginBottom: 10,}}>
+                            style={{color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10,}}>
                             Chat
                         </Text>
                     </View>
@@ -128,11 +128,11 @@ const Tabs = () => {
                             style={{
                                 width: 20,
                                 height: 20,
-                                tintColor: focused ? '#e32f45' : '#748c94',
+                                tintColor: focused ? '#0f7eaa' : '#748c94',
                             }}
                         />
                         <Text
-                            style={{color: focused ? '#e32f45' : '#748c94', fontSize: 12, marginBottom: 10,}}>
+                            style={{color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10,}}>
                             Settings
                         </Text>
                     </View>
