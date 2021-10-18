@@ -15,9 +15,9 @@ class MapScreen extends React.Component {
 
         initialRegion={{
 
-            latitude: 37.78825,
+            latitude: 45.042768,
 
-            longitude: -122.4324,
+            longitude: 3.882936,
 
             latitudeDelta: 0.0922,
 
