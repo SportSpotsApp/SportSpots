@@ -7,6 +7,7 @@ import SearchScreen from '../screens/SearchScreen';
 import ChatScreen from '../screens/ChatScreen';
 import PostScreen from '../screens/PostScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import LoginScreen from "../screens/LoginScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +40,7 @@ const Tabs = () => {
 
             <Tab.Screen name="Home" component={HomeScreen} options={{
                 tabBarShowLabel: false,
+                headerShown: false,
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
                         <Image
@@ -60,6 +62,7 @@ const Tabs = () => {
 
             <Tab.Screen name="Search" component={SearchScreen} options={{
                 tabBarShowLabel: false,
+                headerShown: false,
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
                         <Image
@@ -81,6 +84,7 @@ const Tabs = () => {
 
             <Tab.Screen name="Post" component={PostScreen} options={{
                 tabBarShowLabel: false,
+                headerShown: false,
                 tabBarIcon: ({focused}) => (
                     <Image
                         source={require('../assets/plus2.png')}
@@ -97,8 +101,9 @@ const Tabs = () => {
                 )
             }}/>
 
-            <Tab.Screen name="Chat" component={ChatScreen} options={{
+            <Tab.Screen name="Login" component={LoginScreen} options={{
                 tabBarShowLabel: false,
+                headerShown: false,
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
                         <Image
@@ -120,6 +125,7 @@ const Tabs = () => {
 
             <Tab.Screen name="Settings" component={SettingsScreen} options={{
                 tabBarShowLabel: false,
+                headerShown: false,
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
                         <Image

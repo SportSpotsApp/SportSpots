@@ -1,3 +1,0 @@
-const GOOGLE_MAP_API = "AIzaSyBnmGFTDWs92DqR0vI061Bxtot9ZRA9E4s";
-
-export default GOOGLE_MAP_API;

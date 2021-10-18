@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "911547189138",
+    "firebase_url": "https://sportspots-326109-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "sportspots-326109",
+    "storage_bucket": "sportspots-326109.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911547189138:android:fbc87f5e55e41183d9234b",
+        "android_client_info": {
+          "package_name": "com.sportspots"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911547189138-a8hason64p4cqki0spv3pab30higdere.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-8sPz0zhss3Q4HWYELxaUX7eN2xZjK34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911547189138-a8hason64p4cqki0spv3pab30higdere.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
