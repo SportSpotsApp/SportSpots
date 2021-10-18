@@ -16,7 +16,7 @@ const LoginScreen = () => {
                    CommonActions.navigate({
                        name: 'Settings',
                        params: {
-                           headerLeft: ()=> null,
+                           headerLeft: null,
                            gestureEnabled: false,
                        },
                    })
