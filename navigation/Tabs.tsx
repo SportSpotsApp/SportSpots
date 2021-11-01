@@ -1,17 +1,16 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 import HomeScreen from '../screens/MapScreen';
 import SearchScreen from '../screens/SearchScreen';
-import ChatScreen from '../screens/ChatScreen';
 import PostScreen from '../screens/PostScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from "../screens/LoginScreen";
 
 const Tab = createBottomTabNavigator();
 
-const CustomTabBarButton = ({children, onPress}: any) => (
+const CustomTabBarButton = ({ children, onPress }: any) => (
     <TouchableOpacity
         onPress={onPress}
         style={{
@@ -36,13 +35,13 @@ const CustomTabBarButton = ({children, onPress}: any) => (
 const Tabs = () => {
     return (
 
-        <Tab.Navigator initialRouteName="Home" screenOptions={{tabBarActiveTintColor: '#e91e63',}}>
+        <Tab.Navigator initialRouteName="Home" screenOptions={{ tabBarActiveTintColor: '#e91e63', }}>
 
             <Tab.Screen name="Home" component={HomeScreen} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
+                tabBarIcon: ({ focused }) => (
+                    <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
                             source={require('../assets/carte.png')}
                             resizeMode="contain"
@@ -53,18 +52,18 @@ const Tabs = () => {
                             }}
                         />
                         <Text
-                            style={{color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10,}}>
+                            style={{ color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10, }}>
                             Map
                         </Text>
                     </View>
                 ),
-            }}/>
+            }} />
 
             <Tab.Screen name="Search" component={SearchScreen} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
+                tabBarIcon: ({ focused }) => (
+                    <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
                             source={require('../assets/loupe.png')}
                             resizeMode="contain"
@@ -75,17 +74,17 @@ const Tabs = () => {
                             }}
                         />
                         <Text
-                            style={{color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10,}}>
+                            style={{ color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10, }}>
                             Find
                         </Text>
                     </View>
                 ),
-            }}/>
+            }} />
 
             <Tab.Screen name="Post" component={PostScreen} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
-                tabBarIcon: ({focused}) => (
+                tabBarIcon: ({ focused }) => (
                     <Image
                         source={require('../assets/plus2.png')}
                         resizeMode="contain"
@@ -97,15 +96,15 @@ const Tabs = () => {
                     />
                 ),
                 tabBarButton: (props) => (
-                    <CustomTabBarButton {...props}/>
+                    <CustomTabBarButton {...props} />
                 )
-            }}/>
+            }} />
 
             <Tab.Screen name="Login" component={LoginScreen} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
+                tabBarIcon: ({ focused }) => (
+                    <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
                             source={require('../assets/discuter.png')}
                             resizeMode="contain"
@@ -116,18 +115,18 @@ const Tabs = () => {
                             }}
                         />
                         <Text
-                            style={{color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10,}}>
+                            style={{ color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10, }}>
                             Chat
                         </Text>
                     </View>
                 ),
-            }}/>
+            }} />
 
             <Tab.Screen name="Settings" component={SettingsScreen} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
+                tabBarIcon: ({ focused }) => (
+                    <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
                             source={require('../assets/settings.png')}
                             resizeMode="contain"
@@ -138,12 +137,12 @@ const Tabs = () => {
                             }}
                         />
                         <Text
-                            style={{color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10,}}>
+                            style={{ color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10, }}>
                             Settings
                         </Text>
                     </View>
                 ),
-            }}/>
+            }} />
         </Tab.Navigator>
     );
 }

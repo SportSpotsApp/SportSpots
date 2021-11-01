@@ -1,8 +1,21 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, StatusBar } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import GetLocation from 'react-native-get-location'
 
-const PostScreen = ({navigation}:any) => {
+const PostScreen = ({ navigation }: any) => {
+
+    GetLocation.getCurrentPosition({
+        enableHighAccuracy: true,
+        timeout: 20000,
+    })
+        .then(location => {
+            console.log(location);
+        })
+        .catch(error => {
+            const { code, message } = error;
+            console.warn(code, message);
+        })
 
     const { colors } = useTheme();
 
@@ -10,12 +23,8 @@ const PostScreen = ({navigation}:any) => {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle= { theme.dark ? "light-content" : "dark-content" }/>
-            <Text style={{color: colors.text}}>Post Screen</Text>
-            <Button
-                title="Go to details screen"
-                onPress={() => navigation.navigate("Details")}
-            />
+            <StatusBar barStyle={theme.dark ? "light-content" : "dark-content"} />
+            <Text style={{ color: colors.text }}>Post Screen</Text>
         </View>
     );
 };
