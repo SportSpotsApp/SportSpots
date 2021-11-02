@@ -2,11 +2,12 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-import HomeScreen from '../screens/MapScreen';
-import SearchScreen from '../screens/SearchScreen';
+import SettingsNavigator from "./SettingsNavigator";
+import ChatScreen from "../screens/ChatScreen";
+import MapScreen from '../screens/MapScreen';
 import PostScreen from '../screens/PostScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import LoginScreen from "../screens/LoginScreen";
+import ActivitySearchResultTabNavigator from "./ActivitySearchResultTabNavigator";
+import PeopleNumber from "../screens/Guests/PeopleNumber";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,15 +36,15 @@ const CustomTabBarButton = ({ children, onPress }: any) => (
 const Tabs = () => {
     return (
 
-        <Tab.Navigator initialRouteName="Home" screenOptions={{ tabBarActiveTintColor: '#e91e63', }}>
+        <Tab.Navigator initialRouteName="Map" screenOptions={{ tabBarActiveTintColor: '#e91e63', }}>
 
-            <Tab.Screen name="Home" component={HomeScreen} options={{
+            <Tab.Screen name="Map" component={MapScreen} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
-                            source={require('../assets/carte.png')}
+                            source={require('../../assets/images/carte.png')}
                             resizeMode="contain"
                             style={{
                                 width: 20,
@@ -59,13 +60,13 @@ const Tabs = () => {
                 ),
             }} />
 
-            <Tab.Screen name="Search" component={SearchScreen} options={{
+            <Tab.Screen name="Search" component={ActivitySearchResultTabNavigator} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
-                            source={require('../assets/loupe.png')}
+                            source={require('../../assets/images/loupe.png')}
                             resizeMode="contain"
                             style={{
                                 width: 20,
@@ -86,7 +87,7 @@ const Tabs = () => {
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <Image
-                        source={require('../assets/plus2.png')}
+                        source={require('../../assets/images/plus2.png')}
                         resizeMode="contain"
                         style={{
                             width: 30,
@@ -100,13 +101,13 @@ const Tabs = () => {
                 )
             }} />
 
-            <Tab.Screen name="Login" component={LoginScreen} options={{
+            <Tab.Screen name="Chat" component={PeopleNumber} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
-                            source={require('../assets/discuter.png')}
+                            source={require('../../assets/images/discuter.png')}
                             resizeMode="contain"
                             style={{
                                 width: 20,
@@ -122,13 +123,13 @@ const Tabs = () => {
                 ),
             }} />
 
-            <Tab.Screen name="Settings" component={SettingsScreen} options={{
+            <Tab.Screen name="SettingsNavigator" component={SettingsNavigator} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
-                            source={require('../assets/settings.png')}
+                            source={require('../../assets/images/settings.png')}
                             resizeMode="contain"
                             style={{
                                 width: 20,

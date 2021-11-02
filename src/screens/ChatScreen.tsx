@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Button, StyleSheet, StatusBar} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-const ChatScreen = ({navigation}:any) => {
+const ChatScreen = ({navigation}: any) => {
 
     const { colors } = useTheme();
 

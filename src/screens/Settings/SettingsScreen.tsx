@@ -12,7 +12,7 @@ const SettingsScreen = () => {
                // call windows after login
                navigation.dispatch(
                    CommonActions.navigate({
-                       name: 'Login',
+                       name: 'Home',
                        params: {
                            headerLeft: null,
                            gestureEnabled: false,
