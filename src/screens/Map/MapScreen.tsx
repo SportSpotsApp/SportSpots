@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Pressable, StyleSheet, Text, View, Dimensions} from 'react-native';
 import {CommonActions, useNavigation} from "@react-navigation/native";
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import SuggestionRow from "./SuggestionRow";
+import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 
 const MapScreen = () => {
 
@@ -19,13 +21,31 @@ const MapScreen = () => {
         );
     }
 
-        return (
+    return (
             <View>
-                <Pressable
-                    style={styles.searchButton}
-                    onPress={searchPressed}>
-                    <Text style={styles.searchButtonText}>Rechercher un spot</Text>
-                </Pressable>
+                <GooglePlacesAutocomplete
+                    placeholder='Rechercher un spot'
+                    minLength={2}
+                    fetchDetails={true}
+                    onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                        console.log(data, details);
+                    }}
+                    styles={{
+                        textInput: styles.searchButtonText,
+                        textInputContainer: {
+                            height: '100%',
+                            width: '100%',
+                        }
+                    }}
+                    query={{
+                        key: 'AIzaSyBMUEdWCCYyDXmRxTQPAaquWMD0BEXn-40',
+                        language: 'fr',
+                        types: '(cities)',
+                    }}
+
+                    //suppressDefaultStyles
+                    //renderRow={(item) =><SuggestionRow item={item}/>}
+                />
                 <MapView
                     style={{flex: 1}}
                     provider={PROVIDER_GOOGLE}

@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 import SettingsNavigator from "./SettingsNavigator";
 import ChatScreen from "../screens/ChatScreen";
-import MapScreen from '../screens/MapScreen';
-import PostScreen from '../screens/PostScreen';
+import MapScreen from '../screens/Map/MapScreen';
+import PostScreen from '../screens/Map/PostScreen';
 import ActivitySearchResultTabNavigator from "./ActivitySearchResultTabNavigator";
 import PeopleNumber from "../screens/Guests/PeopleNumber";
 
