@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet, TextInput, FlatList} from "react-native";
-import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 
 import searchResults from "../../../assets/data/search";
 

@@ -1,84 +1,93 @@
-import React, { Component } from 'react';
-import {Pressable, StyleSheet, Text, View, Dimensions} from 'react-native';
-import {CommonActions, useNavigation} from "@react-navigation/native";
+import React, {useEffect, useRef, useState} from 'react';
+import {FlatList, useWindowDimensions, View} from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import SuggestionRow from "./SuggestionRow";
-import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
+import GooglePlaceInput from "./GooglePlaceInput";
+
+import spots from '../../../assets/data/spots'
+import CustomMarker from "../../components/Map/CustomMarker";
+import SpotCarrousel from "../../components/Spot/SpotCarrousel";
+import Spot from '../../models/Spot';
 
 const MapScreen = () => {
 
-    const navigation = useNavigation();
+    const [selectedPlaceId, setSelectedPlaceId] = useState('');
 
-    const searchPressed = () => {
-        navigation.dispatch(
-            CommonActions.navigate({
-                name: 'Search',
-                params: {
-                    headerLeft: null,
-                    gestureEnabled: false,
-                },
-            })
-        );
-    }
+    const flatlist: React.RefObject<FlatList> = useRef(null);
+    const map: React.RefObject<MapView> = useRef(null)
+
+    const viewConfig = useRef({itemVisiblePercentThreshold: 30})
+    const onViewChanged = useRef(({ viewableItems }: any) => {
+        if(viewableItems.length > 0)
+        {
+            const selectedPlace = viewableItems[0].item;
+            setSelectedPlaceId(selectedPlace.id)
+        }
+    })
+
+    const width = useWindowDimensions().width;
+
+    useEffect(() => {
+        if(!selectedPlaceId || !flatlist) return;
+
+        const index = spots.findIndex(spot => spot.id === selectedPlaceId);
+
+        flatlist.current?.scrollToIndex({ animated: true, index: index });
+
+        const selectedSpot = spots[index];
+        const region = {
+            latitude: selectedSpot.coordinates.latitude,
+            longitude: selectedSpot.coordinates.longitude,
+            latitudeDelta: 0.8,
+            longitudeDelta: 0.8,
+        }
+
+        map.current?.animateToRegion(region);
+    }, [selectedPlaceId])
 
     return (
-            <View>
-                <GooglePlacesAutocomplete
-                    placeholder='Rechercher un spot'
-                    minLength={2}
-                    fetchDetails={true}
-                    onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                        console.log(data, details);
-                    }}
-                    styles={{
-                        textInput: styles.searchButtonText,
-                        textInputContainer: {
-                            height: '100%',
-                            width: '100%',
-                        }
-                    }}
-                    query={{
-                        key: 'AIzaSyBMUEdWCCYyDXmRxTQPAaquWMD0BEXn-40',
-                        language: 'fr',
-                        types: '(cities)',
-                    }}
+            <View style={{ flex: 1 }}>
+                <GooglePlaceInput />
+                <MapView style={{flex: 1}}
+                         ref={() => map}
+                         provider={PROVIDER_GOOGLE}
+                         showsUserLocation
+                         initialRegion={{
+                             latitude: 45.042768,
+                             longitude: 3.882936,
+                             latitudeDelta: 0.0922,
+                             longitudeDelta: 0.0421
+                         }}>
+                    {spots.map(spots => (
+                        <CustomMarker
+                        coordinate={spots.coordinates}
+                        sport={spots.sport}
+                        isSelected={spots.id === selectedPlaceId}
+                        onPress={() => {
+                            setSelectedPlaceId(spots.id);
+                        }}
+                        />
+                    ))}
+                </MapView>
 
-                    //suppressDefaultStyles
-                    //renderRow={(item) =><SuggestionRow item={item}/>}
-                />
-                <MapView
-                    style={{flex: 1}}
-                    provider={PROVIDER_GOOGLE}
-                    showsUserLocation
-                    initialRegion={{
-                        latitude: 45.042768,
-                        longitude: 3.882936,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421
-                    }}
-                />
+                <View style={{
+                    bottom: 40,
+                }}>
+                    <FlatList
+                        ref={flatlist}
+                        data={spots}
+                        renderItem={({ item }: {item: Spot}) => <SpotCarrousel spot={item} />}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        snapToInterval={width - 60}
+                        snapToAlignment={"center"}
+                        decelerationRate={"fast"}
+                        viewabilityConfig={viewConfig.current}
+                        onViewableItemsChanged={onViewChanged.current}
+                    />
+                </View>
+
             </View>
     );
 }
-
-const styles = StyleSheet.create({
-    searchButton: {
-        backgroundColor: '#fff',
-        height: 60,
-        width: Dimensions.get("screen").width - 20,
-        borderRadius: 30,
-        marginHorizontal: 10,
-        justifyContent: "center",
-        flexDirection: "row",
-        alignItems: "center",
-        position: "absolute",
-        top: 20,
-        zIndex: 100,
-    },
-    searchButtonText: {
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-});
 
 export default MapScreen;

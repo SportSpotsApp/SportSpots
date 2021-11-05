@@ -1,37 +1,37 @@
 import React from "react";
 import {View, Text, Image, StyleSheet} from "react-native";
 
-const Spot = (props : any) => {
+const DetailedActivity = (props : any) => {
 
-    const spot = props.spot;
+    const activity = props.activity;
 
     return (
         <View style={styles.container}>
             {/*Image, take a picture from the spot*/}
             <Image
-                source={{uri: spot.image}}
+                source={{uri: activity.image}}
                 style={styles.image}
             />
 
             {/*Number of people : Current : Max*/}
             <Text style={styles.people}>
-                Sport : {spot.sport}
+                Actuel : {activity.actualNumber} - Max : {activity.maxNumber}
             </Text>
 
             {/*Sport and description*/}
             <Text style={styles.description} numberOfLines={2}>
-                {spot.spotDesc}
+                {activity.sport} | {activity.activityDesc}
             </Text>
 
             {/*Time and Date : 10:45 AM, Mardi 2 Nov */}
             <Text style={styles.time}>
-                Créé par {spot.createBy}, le{' '}
-                <Text style={styles.date}>{spot.createDate}</Text>
+                {activity.hour}:{activity.minutes} {activity.halfOfDay},{' '}
+                <Text style={styles.date}>{activity.activityDate}</Text>
             </Text>
 
             {/*Localisation*/}
             <Text style={styles.localisation}>
-                {spot.spotPostalCode}, {spot.spotCityName}
+                {activity.spotPostalCode}, {activity.spotCityName}
             </Text>
         </View>
     )
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Spot;
+export default DetailedActivity;

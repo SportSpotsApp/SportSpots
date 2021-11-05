@@ -1,54 +1,43 @@
 import React from "react";
-import {Text, Image, StyleSheet, Pressable} from "react-native";
-import {CommonActions, useNavigation} from "@react-navigation/native";
+import {View, Text, Image, StyleSheet, ScrollView} from "react-native";
 
-const Activity = (props : any) => {
+const Spot = (props : any) => {
 
-    const navigation = useNavigation();
-
-    const activity = props.activity;
-    const goToActivityPage = () => {
-        navigation.dispatch(
-            CommonActions.navigate({
-                name: 'DetailedActivity',
-                params: {
-                    headerLeft: null,
-                    gestureEnabled: false,
-                    activityId: activity.id,
-                },
-            })
-        );
-    }
+    const spot = props.spot;
 
     return (
-        <Pressable onPress={goToActivityPage} style={styles.container}>
+        <ScrollView style={styles.container}>
             {/*Image, take a picture from the spot*/}
             <Image
-                source={{uri: activity.image}}
+                source={{uri: spot.image}}
                 style={styles.image}
             />
 
             {/*Number of people : Current : Max*/}
             <Text style={styles.people}>
-                Actuel : {activity.actualNumber} - Max : {activity.maxNumber}
+                Sport : {spot.sport}
             </Text>
 
             {/*Sport and description*/}
             <Text style={styles.description} numberOfLines={2}>
-                {activity.sport} | {activity.activityDesc}
+                {spot.spotDesc}
             </Text>
 
             {/*Time and Date : 10:45 AM, Mardi 2 Nov */}
             <Text style={styles.time}>
-                {activity.hour}:{activity.minutes} {activity.halfOfDay},{' '}
-                <Text style={styles.date}>{activity.activityDate}</Text>
+                Créé par {spot.createBy}, le{' '}
+                <Text style={styles.date}>{spot.createDate}</Text>
             </Text>
 
             {/*Localisation*/}
             <Text style={styles.localisation}>
-                {activity.spotPostalCode}, {activity.spotCityName}
+                {spot.spotPostalCode}, {spot.spotCityName}
             </Text>
-        </Pressable>
+
+            <Text style={styles.longDescription}>
+                {spot.spotLongDesc}
+            </Text>
+        </ScrollView>
     )
 }
 
@@ -82,6 +71,11 @@ const styles = StyleSheet.create({
         color: '#7b7b7b',
         textDecorationLine: "underline",
     },
+    longDescription: {
+        fontSize: 16,
+        lineHeight: 24,
+        marginVertical: 20,
+    },
 });
 
-export default Activity;
+export default Spot;

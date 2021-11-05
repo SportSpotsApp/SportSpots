@@ -8,6 +8,8 @@ import MapScreen from '../screens/Map/MapScreen';
 import PostScreen from '../screens/Map/PostScreen';
 import ActivitySearchResultTabNavigator from "./ActivitySearchResultTabNavigator";
 import PeopleNumber from "../screens/Guests/PeopleNumber";
+import HomeNavigator from "./HomeNavigator";
+import ActivityNavigator from "./ActivityNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -36,9 +38,9 @@ const CustomTabBarButton = ({ children, onPress }: any) => (
 const Tabs = () => {
     return (
 
-        <Tab.Navigator initialRouteName="Map" screenOptions={{ tabBarActiveTintColor: '#e91e63', }}>
+        <Tab.Navigator initialRouteName="HomeNavigator" screenOptions={{ tabBarActiveTintColor: '#e91e63', }}>
 
-            <Tab.Screen name="Map" component={MapScreen} options={{
+            <Tab.Screen name="HomeNavigator" component={HomeNavigator} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
@@ -60,7 +62,7 @@ const Tabs = () => {
                 ),
             }} />
 
-            <Tab.Screen name="Search" component={ActivitySearchResultTabNavigator} options={{
+            <Tab.Screen name="ActivityNavigator" component={ActivityNavigator} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
