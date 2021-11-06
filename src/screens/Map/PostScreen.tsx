@@ -6,7 +6,7 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import GetLocation from 'react-native-get-location'
 import modelSpot from '../../models/Spot';
-import addSpot from '../../API/spotAPI';
+import API from '../../API/spotAPI';
 
 
 
@@ -38,7 +38,7 @@ const PostScreen = ({ navigation }: any) => {
         addedSpot.spotPostalCode = 0;
         addedSpot.spotCityName = spotCityName;
 
-        /*addSpot(
+        API.addSpot(
             {
                 sport: "tennis",
                 spotDesc: addedSpot.spotDesc,
@@ -50,7 +50,7 @@ const PostScreen = ({ navigation }: any) => {
                 image: "https://jardinage.lemonde.fr/images/dossiers/2017-06/labrador-1-101957.jpg",
                 coordinates: addedSpot.coordinates,
             }
-        );*/
+        );
 
         navigation.navigate('Map');
     }
