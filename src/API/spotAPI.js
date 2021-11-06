@@ -1,4 +1,4 @@
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
 
 export default function addSpot(Spot) {
     firebase.firestore()

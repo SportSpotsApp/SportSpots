@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import firebase from 'react-native-firebase';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
@@ -38,19 +37,7 @@ const PostScreen = ({ navigation }: any) => {
         addedSpot.spotPostalCode = 0;
         addedSpot.spotCityName = spotCityName;
 
-        /*addSpot(
-            {
-                sport: "tennis",
-                spotDesc: addedSpot.spotDesc,
-                spotLongDesc: addedSpot.spotLongDesc,
-                spotPostalCode: addedSpot.spotPostalCode,
-                spotCityName: addedSpot.spotCityName,
-                createBy: "admin",
-                createDate: firebase.firestore.FieldValue.serverTimestamp(),
-                image: "https://jardinage.lemonde.fr/images/dossiers/2017-06/labrador-1-101957.jpg",
-                coordinates: addedSpot.coordinates,
-            }
-        );*/
+        addSpot(addedSpot);
 
         navigation.navigate('Map');
     }
