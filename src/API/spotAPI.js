@@ -1,7 +1,6 @@
 import firebase from 'react-native-firebase';
-import ModelSpot from '../models/Spot';
 
-export function addSpot(Spot, addComplete) {
+export default function addSpot(Spot) {
     firebase.firestore()
         .collection('Spots')
         .add({
@@ -14,7 +13,7 @@ export function addSpot(Spot, addComplete) {
             createDate: firebase.firestore.FieldValue.serverTimestamp(),
             image: Spot.image,
             coordinates: Spot.coordinates,
-        }).then((data) => addComplete(data))
+        })
         .catch((error) => console.log(error));
 }
 
