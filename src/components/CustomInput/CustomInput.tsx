@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 
 interface ClassTypeProps {
     value: string;
@@ -8,7 +8,7 @@ interface ClassTypeProps {
     secureTextEntry?: boolean;
 }
 
-const CustomInput = ({value, setValue, placeholder, secureTextEntry = false}: ClassTypeProps) => {
+const CustomInput = ({ value, setValue, placeholder, secureTextEntry = false }: ClassTypeProps) => {
     return (
         <View style={styles.container}>
             <TextInput

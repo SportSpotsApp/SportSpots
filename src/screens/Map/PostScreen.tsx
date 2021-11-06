@@ -1,7 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, StatusBar } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import CustomInput from "../../components/CustomInput/CustomInput";
 import GetLocation from 'react-native-get-location'
+
 
 const PostScreen = ({ navigation }: any) => {
 
@@ -20,11 +22,16 @@ const PostScreen = ({ navigation }: any) => {
     const { colors } = useTheme();
 
     const theme = useTheme();
+    const [spotName, setSpotName] = useState('');
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle={theme.dark ? "light-content" : "dark-content"} />
-            <Text style={{ color: colors.text }}>Post Screen</Text>
+            <Text style={{ color: colors.text }}>Poster un spot</Text>
+            <CustomInput
+                placeholder="Nom du spot"
+                value={spotName}
+                setValue={setSpotName}
+            />
         </View>
     );
 };
@@ -32,6 +39,10 @@ const PostScreen = ({ navigation }: any) => {
 export default PostScreen;
 
 const styles = StyleSheet.create({
+    textInput: {
+        fontSize: 20,
+        marginBottom: 20,
+    },
     container: {
         flex: 1,
         alignItems: 'center',
