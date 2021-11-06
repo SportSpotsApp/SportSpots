@@ -5,7 +5,7 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import GetLocation from 'react-native-get-location'
 import modelSpot from '../../models/Spot';
-import addSpot from '../../API/spotAPI';
+import API from '../../API/spotAPI';
 
 
 
