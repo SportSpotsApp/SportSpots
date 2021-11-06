@@ -2,35 +2,75 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
+import { CustomButton } from '../../components/CustomButton/CustomButton';
 import GetLocation from 'react-native-get-location'
+import modelSpot from '../../models/Spot';
+import { spotAPI } from '../../API/spotAPI';
 
 
 const PostScreen = ({ navigation }: any) => {
+    let addedSpot = {} as modelSpot;
 
+    const [spotDesc, setSpotDesc] = useState('');
+    const [spotLongDesc, setSpotLongDesc] = useState('');
+    const [spotPostalCode, setSpotPostalCode] = useState('');
+    const [spotCityName, setSpotCityName] = useState('');
+
+    // Get location
     GetLocation.getCurrentPosition({
         enableHighAccuracy: true,
         timeout: 20000,
     })
         .then(location => {
-            console.log(location);
+            addedSpot.coordinates.latitude = location.latitude;
+            addedSpot.coordinates.longitude = location.longitude;
         })
         .catch(error => {
             const { code, message } = error;
             console.warn(code, message);
         })
 
+    const handleSubmit = () => {
+        addedSpot.spotDesc = spotDesc;
+        addedSpot.spotLongDesc = spotLongDesc;
+        addedSpot.spotPostalCode = 0;
+        addedSpot.spotCityName = spotCityName;
+
+        spotAPI.addSpot(addedSpot);
+
+        navigation.navigate('Map', { addedSpot });
+    }
+
     const { colors } = useTheme();
 
     const theme = useTheme();
-    const [spotName, setSpotName] = useState('');
 
     return (
-        <View style={styles.container}>
+        <View style={styles.root}>
             <Text style={{ color: colors.text }}>Poster un spot</Text>
             <CustomInput
-                placeholder="Nom du spot"
-                value={spotName}
-                setValue={setSpotName}
+                placeholder="Description courte"
+                value={spotDesc}
+                setValue={setSpotDesc}
+            />
+            <CustomInput
+                placeholder="Description longue"
+                value={spotLongDesc}
+                setValue={setSpotLongDesc}
+            />
+            <CustomInput
+                placeholder="Code postal"
+                value={spotPostalCode}
+                setValue={setSpotPostalCode}
+            />
+            <CustomInput
+                placeholder="Ville"
+                value={spotCityName}
+                setValue={setSpotCityName}
+            />
+            <CustomButton
+                text="Poster"
+                onPress={() => { handleSubmit() }}
             />
         </View>
     );
@@ -39,6 +79,10 @@ const PostScreen = ({ navigation }: any) => {
 export default PostScreen;
 
 const styles = StyleSheet.create({
+    root: {
+        alignItems: 'center',
+        padding: 20,
+    },
     textInput: {
         fontSize: 20,
         marginBottom: 20,
