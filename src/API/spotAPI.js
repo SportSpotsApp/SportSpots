@@ -11,8 +11,8 @@ export function addSpot(Spot)
         spotLongDesc: Spot.spotLongDesc,
         spotPostalCode: Spot.spotPostalCode,
         spotCityName: Spot.spotCityName,
-        createBy: Spot.createdBy,
-        createDate: firebase.firestore.FieldValue.serverTimestamp(),
+        author: Spot.createAt,
+        createAt: firebase.firestore.FieldValue.serverTimestamp(),
         image: Spot.image,
         coordinates: Spot.coordinates,
     })
@@ -25,9 +25,9 @@ export async function getSpot(SpotRetreived)
 
     var snapshot = await firestore()
     .collection('Spots')
-    .orderBy('createdDate')
+    .orderBy('createdAt')
     .get()
-    
+
     snapshot.forEach((doc) => {
         SpotList.push(doc.data());
     });

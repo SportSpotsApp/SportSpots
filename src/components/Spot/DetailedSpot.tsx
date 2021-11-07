@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, Image, StyleSheet, ScrollView} from "react-native";
+import {Text, Image, StyleSheet, ScrollView} from "react-native";
 
 const Spot = (props : any) => {
 
@@ -25,8 +25,8 @@ const Spot = (props : any) => {
 
             {/*Time and Date : 10:45 AM, Mardi 2 Nov */}
             <Text style={styles.time}>
-                Créé par {spot.createBy}, le{' '}
-                <Text style={styles.date}>{spot.createDate}</Text>
+                Créé par {spot.author}, le{' '}
+                <Text style={styles.date}>{spot.createAt}</Text>
             </Text>
 
             {/*Localisation*/}

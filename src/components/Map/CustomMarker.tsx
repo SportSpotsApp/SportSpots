@@ -1,9 +1,15 @@
 import React from "react";
 import {View, Text} from "react-native";
-import {Marker} from "react-native-maps";
+import {LatLng, MapEvent, Marker} from "react-native-maps";
 
-const CustomMarker = (props:any) => {
-    const {coordinate, sport, isSelected, onPress} = props;
+interface CustomMarkerType {
+    coordinate: LatLng,
+    sport: string,
+    isSelected: boolean,
+    onPress: (event: MapEvent<{ action: 'marker-press'; id: string }>) => void;
+}
+
+const CustomMarker = ({ coordinate, sport, isSelected, onPress }: CustomMarkerType ) => {
     return (
         <Marker coordinate={coordinate} onPress={onPress}>
             <View style={{
@@ -17,7 +23,7 @@ const CustomMarker = (props:any) => {
                     fontWeight: "bold",
                     color: isSelected ? "white" : "black",
                 }}>
-                    {sport.id}
+                    {sport}
                 </Text>
             </View>
         </Marker>

@@ -1,9 +1,11 @@
 import React, {useState} from "react";
-import {View, Text, StyleSheet, TextInput, FlatList} from "react-native";
+import {View, Text, StyleSheet, TextInput, FlatList, Pressable} from "react-native";
 
-import searchResults from "../../../assets/data/search";
+import activities from "../../../assets/data/activities";
+import Activity from "../../models/Activity";
+import ActivityComponent from "../../components/Activity/ActivityComponent";
 
-const ActivitySearchScreen = (props:any) => {
+const ActivitySearchScreen = () => {
 
     const [inputText, setInputText] = useState('');
 
@@ -18,15 +20,10 @@ const ActivitySearchScreen = (props:any) => {
                 onChangeText={setInputText}
             />
             <FlatList
-                data={searchResults}
-                renderItem={({item}) => (
+                data={activities}
+                renderItem={({ item }: {item: Activity}) => (
                     <View style={styles.row}>
-                        <View style={styles.iconContainer}>
-
-                        </View>
-                        <Text style={styles.descText}>
-                            {item.description}
-                        </Text>
+                        <ActivityComponent activity={item}/>
                     </View>
                 )}
             />

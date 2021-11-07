@@ -1,37 +1,37 @@
 import React from "react";
 import {View, Text, Image, StyleSheet} from "react-native";
+import Activity from "../../../assets/data/activities";
 
-const DetailedActivity = (props : any) => {
+interface DetailedActivityType {
+    activityId: number;
+}
 
-    const activity = props.activity;
+const DetailedActivity = ({ activityId }: DetailedActivityType) => {
+
+    const activity = Activity[activityId];
 
     return (
         <View style={styles.container}>
-            {/*Image, take a picture from the spot*/}
             <Image
                 source={{uri: activity.image}}
                 style={styles.image}
             />
 
-            {/*Number of people : Current : Max*/}
             <Text style={styles.people}>
-                Actuel : {activity.actualNumber} - Max : {activity.maxNumber}
+                Actuel : {activity.currentNumber} - Max : {activity.maximalNumber}
             </Text>
 
-            {/*Sport and description*/}
-            <Text style={styles.description} numberOfLines={2}>
-                {activity.sport} | {activity.activityDesc}
-            </Text>
-
-            {/*Time and Date : 10:45 AM, Mardi 2 Nov */}
             <Text style={styles.time}>
-                {activity.hour}:{activity.minutes} {activity.halfOfDay},{' '}
+                {activity.activityTime},{' '}
                 <Text style={styles.date}>{activity.activityDate}</Text>
             </Text>
 
-            {/*Localisation*/}
             <Text style={styles.localisation}>
-                {activity.spotPostalCode}, {activity.spotCityName}
+                {activity.activityPostalCode}, {activity.activityCityName}
+            </Text>
+
+            <Text style={styles.description}>
+                {activity.sport} | {activity.activityLongDesc}
             </Text>
         </View>
     )
