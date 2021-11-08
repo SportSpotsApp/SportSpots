@@ -65,6 +65,7 @@ const MapScreen = () => {
                         onPress={() => {
                             setSelectedPlaceId(spots.id);
                         }}
+                        key={spots.id}
                         />
                     ))}
                 </MapView>

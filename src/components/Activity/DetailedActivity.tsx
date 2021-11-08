@@ -1,14 +1,13 @@
 import React from "react";
 import {View, Text, Image, StyleSheet} from "react-native";
-import Activity from "../../../assets/data/activities";
 
 interface DetailedActivityType {
-    activityId: number;
+    route: any;
 }
 
-const DetailedActivity = ({ activityId }: DetailedActivityType) => {
+const DetailedActivity = ({route}: DetailedActivityType) => {
 
-    const activity = Activity[activityId];
+    const {activity} = route.params;
 
     return (
         <View style={styles.container}>

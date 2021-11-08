@@ -2,7 +2,7 @@ import Spot from '../../src/models/Spot';
 
 const spots: Spot[] = [
   {
-    id: 0,
+    id: '0',
     image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/1.jpg',
     sport: 'Tenis',
     spotDesc: 'Spot génial pour faire du ténis',
@@ -22,7 +22,7 @@ const spots: Spot[] = [
     },
   },
   {
-    id: 1,
+    id: '1',
     image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/2.jpg',
     sport: 'Handball',
     spotDesc: 'Super coin bien équipe pour faire du hand',
@@ -42,7 +42,7 @@ const spots: Spot[] = [
     },
   },
   {
-    id: 2,
+    id: '2',
     image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/3.jpg',
     sport: 'Badminton',
     spotDesc: 'Envie de faire voler un volant, cest lendroit rêver',
@@ -62,7 +62,7 @@ const spots: Spot[] = [
     },
   },
   {
-    id: 3,
+    id: '3',
     image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/4.jpg',
     sport: 'Foot',
     spotDesc: 'Stade synthétique très accessible, super terrain',

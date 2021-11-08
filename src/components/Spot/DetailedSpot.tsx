@@ -1,35 +1,34 @@
 import React from "react";
 import {Text, Image, StyleSheet, ScrollView} from "react-native";
 
-const Spot = (props : any) => {
+interface DetailedSpotType {
+    route: any;
+}
 
-    const spot = props.spot;
+const DetailedSpot = ({route}: DetailedSpotType) => {
+
+    const {spot} = route.params;
 
     return (
         <ScrollView style={styles.container}>
-            {/*Image, take a picture from the spot*/}
             <Image
                 source={{uri: spot.image}}
                 style={styles.image}
             />
 
-            {/*Number of people : Current : Max*/}
             <Text style={styles.people}>
                 Sport : {spot.sport}
             </Text>
 
-            {/*Sport and description*/}
             <Text style={styles.description} numberOfLines={2}>
                 {spot.spotDesc}
             </Text>
 
-            {/*Time and Date : 10:45 AM, Mardi 2 Nov */}
             <Text style={styles.time}>
                 Créé par {spot.author}, le{' '}
                 <Text style={styles.date}>{spot.createAt}</Text>
             </Text>
 
-            {/*Localisation*/}
             <Text style={styles.localisation}>
                 {spot.spotPostalCode}, {spot.spotCityName}
             </Text>
@@ -78,4 +77,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Spot;
+export default DetailedSpot;

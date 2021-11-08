@@ -6,10 +6,11 @@ interface CustomMarkerType {
     coordinate: LatLng,
     sport: string,
     isSelected: boolean,
-    onPress: (event: MapEvent<{ action: 'marker-press'; id: string }>) => void;
+    onPress: (event: MapEvent<{ action: 'marker-press'; id: string }>) => void,
+    key: string;
 }
 
-const CustomMarker = ({ coordinate, sport, isSelected, onPress }: CustomMarkerType ) => {
+const CustomMarker = ({ coordinate, sport, isSelected, onPress, key }: CustomMarkerType ) => {
     return (
         <Marker coordinate={coordinate} onPress={onPress}>
             <View style={{

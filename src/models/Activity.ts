@@ -1,7 +1,7 @@
 import Coordinate from './Coordinate';
 
 export default interface Activity {
-    id: number;
+    id: string;
     sport: string;
     activityDesc: string;
     activityLongDesc: string;

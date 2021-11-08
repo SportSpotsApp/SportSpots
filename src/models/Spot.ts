@@ -1,7 +1,7 @@
 import Coordinate from './Coordinate';
 
 export default interface Spot {
-    id: number;
+    id: string;
     sport: string;
     spotDesc: string;
     spotLongDesc: string;

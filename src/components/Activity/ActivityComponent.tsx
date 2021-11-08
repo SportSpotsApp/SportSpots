@@ -18,7 +18,7 @@ const ActivityComponent = ({ activity }: ActivityType) => {
                 params: {
                     headerLeft: null,
                     gestureEnabled: false,
-                    activityId: activity.id,
+                    activity: activity,
                 },
             })
         );

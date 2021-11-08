@@ -6,7 +6,7 @@ import SpotDetailsScreen from "../screens/Details/SpotDetailsScreen";
 
 const Stack = createStackNavigator();
 
-const HomeNavigator = (pros:any) => {
+const HomeNavigator = () => {
     return (
       <Stack.Navigator>
           <Stack.Screen
@@ -18,7 +18,7 @@ const HomeNavigator = (pros:any) => {
               />
           <Stack.Screen
               name={'DetailedSpot'}
-              component={SpotDetailsScreen}
+              component={DetailedSpot}
               options={{
                   headerShown: false,
               }}

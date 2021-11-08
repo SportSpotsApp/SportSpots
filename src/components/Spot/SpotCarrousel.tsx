@@ -18,7 +18,7 @@ const SpotCarrousel = ({ spot }: SpotCarrouselType ) => {
                 params: {
                     headerLeft: null,
                     gestureEnabled: false,
-                    spotId: spot.id,
+                    spot: spot,
                 },
             })
         );

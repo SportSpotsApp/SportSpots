@@ -5,7 +5,7 @@ import DetailedActivity from "../components/Activity/DetailedActivity";
 
 const Stack = createStackNavigator();
 
-const ActivityNavigator = (pros:any) => {
+const ActivityNavigator = () => {
     return (
       <Stack.Navigator>
           <Stack.Screen

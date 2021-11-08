@@ -4,7 +4,7 @@ import ActivityComponent from "../../components/Activity/ActivityComponent";
 
 import activities from '../../../assets/data/activities'
 
-const SearchResultScreen = (props:any) => {
+const SearchResultScreen = () => {
     return (
       <View>
           <FlatList

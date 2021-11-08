@@ -2,7 +2,7 @@ import Activity from '../../src/models/Activity';
 
 const activities: Activity[] = [
   {
-    id: 0,
+    id: '0',
     sport: 'Handball',
     activityDesc: 'Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun',
     activityLongDesc: 'Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun',
@@ -23,7 +23,7 @@ const activities: Activity[] = [
     },
   },
   {
-    id: 1,
+    id: '1',
     sport: 'Handball',
     activityDesc: 'Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun',
     activityLongDesc: 'Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun',
@@ -44,7 +44,7 @@ const activities: Activity[] = [
     },
   },
   {
-    id: 2,
+    id: '2',
     sport: 'Handball',
     activityDesc: 'Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun',
     activityLongDesc: 'Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun',
@@ -65,7 +65,7 @@ const activities: Activity[] = [
     },
   },
   {
-    id: 3,
+    id: '3',
     sport: 'Handball',
     activityDesc: 'Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun',
     activityLongDesc: 'Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun Venez faire une petite compétition de tenis, pas de niveau requis c est juste pr le fun',
