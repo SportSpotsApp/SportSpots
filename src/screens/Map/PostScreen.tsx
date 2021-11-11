@@ -4,13 +4,14 @@ import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import GetLocation from 'react-native-get-location'
-import modelSpot from '../../models/Spot';
+import SpotClass from '../../models/Spot';
 import {addSpot} from '../../API/spotAPI';
 
 
 
 const PostScreen = ({ navigation }: any) => {
-    let addedSpot = {} as modelSpot;
+
+    var addedSpot:SpotClass
 
     const [spotDesc, setSpotDesc] = useState('');
     const [spotLongDesc, setSpotLongDesc] = useState('');
@@ -23,8 +24,8 @@ const PostScreen = ({ navigation }: any) => {
         timeout: 20000,
     })
         .then(location => {
-            addedSpot.coordinates.latitude = location.latitude;
-            addedSpot.coordinates.longitude = location.longitude;
+            //addedSpot.coordinates.latitude = location.latitude;
+            //addedSpot.coordinates.longitude = location.longitude;
         })
         .catch(error => {
             const { code, message } = error;
@@ -32,10 +33,11 @@ const PostScreen = ({ navigation }: any) => {
         })
 
     const handleSubmit = () => {
-        addedSpot.spotDesc = spotDesc;
-        addedSpot.spotLongDesc = spotLongDesc;
-        addedSpot.spotPostalCode = 0;
-        addedSpot.spotCityName = spotCityName;
+        
+        //addedSpot.spotDesc = spotDesc;
+        //addedSpot.spotLongDesc = spotLongDesc;
+        //addedSpot.spotPostalCode = 0;
+        //addedSpot.spotCityName = spotCityName;
 
         addSpot(addedSpot);
 
