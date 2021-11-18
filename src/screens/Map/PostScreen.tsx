@@ -3,43 +3,53 @@ import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
-import GetLocation from 'react-native-get-location'
+import GetLocation, { Location } from 'react-native-get-location'
 import SpotClass from '../../models/Spot';
 import {addSpot} from '../../API/spotAPI';
-
+import auth from "@react-native-firebase/auth";
 
 
 const PostScreen = ({ navigation }: any) => {
-
-    var addedSpot:SpotClass
+    
+    
 
     const [spotDesc, setSpotDesc] = useState('');
     const [spotLongDesc, setSpotLongDesc] = useState('');
     const [spotPostalCode, setSpotPostalCode] = useState('');
     const [spotCityName, setSpotCityName] = useState('');
 
-    // Get location
-    GetLocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 20000,
-    })
-        .then(location => {
-            //addedSpot.coordinates.latitude = location.latitude;
-            //addedSpot.coordinates.longitude = location.longitude;
-        })
-        .catch(error => {
-            const { code, message } = error;
-            console.warn(code, message);
-        })
+    var PostalCode:number = +spotPostalCode;
+    
 
     const handleSubmit = () => {
-        
-        //addedSpot.spotDesc = spotDesc;
-        //addedSpot.spotLongDesc = spotLongDesc;
-        //addedSpot.spotPostalCode = 0;
-        //addedSpot.spotCityName = spotCityName;
 
-        addSpot(addedSpot);
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 20000,
+            })
+            .then(location => {
+                var latitude:number = location.latitude;
+                var longitude:number = location.longitude;
+                let addedSpot=new SpotClass("tennis",
+                                        spotDesc,
+                                        spotLongDesc,
+                                        PostalCode,
+                                        spotCityName,
+                                        String(auth().currentUser?.email),
+                                        "image",
+                                        latitude,
+                                        longitude
+                                        )
+                addSpot(addedSpot);
+            })
+            .catch(error => {
+                const { code, message } = error;
+                console.warn(code, message);
+            })
+        
+            
+
+        
 
         navigation.navigate('Map');
     }
