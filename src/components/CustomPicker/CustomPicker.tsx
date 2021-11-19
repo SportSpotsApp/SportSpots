@@ -1,11 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Text } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { Picker, PickerItemProps } from '@react-native-picker/picker';
 
 interface ClassTypeProps {
     value: string;
     setValue: any;
     mode: "dialog" | "dropdown" | undefined;
+    list: string[][]; // ex : [["blue", "blueValue"], [["red", "redValue"]]]
 }
 
 export enum StyleType {
@@ -14,7 +15,15 @@ export enum StyleType {
     TERTIARY = "TERTIARY"
 }
 
-export const Custompicker = ({ value, setValue, mode }: ClassTypeProps) => {
+export const Custompicker = ({ value, setValue, mode, list }: ClassTypeProps) => {
+    var itemListArr: any[] = [];
+
+    for (let i = 0; i < list.length; i++) {
+        itemListArr.push(
+            <Picker.Item label={list[i][0]} value={list[i][1]} />
+        );
+    }
+
     return (
         <View style={styles.container}>
             <Picker
@@ -23,8 +32,7 @@ export const Custompicker = ({ value, setValue, mode }: ClassTypeProps) => {
                     setValue(itemValue)
                 }
                 mode={mode}>
-                <Picker.Item label="Java" value="java" />
-                <Picker.Item label="JavaScript" value="js" />
+                {itemListArr}
             </Picker>
         </View >
     )

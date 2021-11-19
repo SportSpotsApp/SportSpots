@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
@@ -18,7 +18,20 @@ const PostScreen = ({ navigation }: any) => {
     const [spotLongDesc, setSpotLongDesc] = useState('');
     const [spotPostalCode, setSpotPostalCode] = useState('');
     const [spotCityName, setSpotCityName] = useState('');
-    const [spotSport, setSpotSport] = useState('');
+    const [spotSport, setSpotSport] = useState("");
+    const sportList =
+        [["Football", "football"],
+        ["Basketball", "basketball"],
+        ["Volleyball", "volleyball"],
+        ["Tennis", "tennis"],
+        ["Handball", "handball"],
+        ["Badminton", "badminton"],
+        ["Hockey", "hockey"],
+        ["Baseball", "baseball"],
+        ["Cycling", "cycling"],
+        ["Running", "running"],
+        ["Swimming", "swimming"],
+        ["Other", "other"]];
 
     var PostalCode: number = +spotPostalCode;
 
@@ -49,11 +62,6 @@ const PostScreen = ({ navigation }: any) => {
                 const { code, message } = error;
                 console.warn(code, message);
             })
-
-
-
-
-
         navigation.navigate('Map');
     }
 
@@ -61,16 +69,15 @@ const PostScreen = ({ navigation }: any) => {
 
     const theme = useTheme();
 
-    const [value, setValue] = useState("");
-
     return (
         <View style={styles.root}>
             <Text style={{ color: colors.text }}>Poster un spot</Text>
 
             <Custompicker
-                value={value}
-                setValue={setValue}
+                value={spotSport}
+                setValue={setSpotSport}
                 mode="dropdown"
+                list={sportList}
             />
 
             <CustomInput
