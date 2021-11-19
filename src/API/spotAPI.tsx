@@ -23,11 +23,11 @@ export default class FirebaseRequest
         .catch((error) => console.log(error));
     }
 
-    /*getSpot(Spot:SpotClass)
+    public async getSpot()
     {
-        var SpotList:SpotClass[] = [];
+        var SpotList: any = [];
 
-        var snapshot = firestore()
+        var snapshot = await firestore()
         .collection('Spots')
         .orderBy('createdAt')
         .get()
@@ -36,6 +36,6 @@ export default class FirebaseRequest
             SpotList.push(doc.data());
         });
 
-        foodRetreived(SpotList);
-    }*/
+        return SpotList;
+    }
 }

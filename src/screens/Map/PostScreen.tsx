@@ -42,6 +42,7 @@ const PostScreen = ({ navigation }: any) => {
                                         longitude
                                         )
                 db.addSpot(addedSpot);
+                console.log(db.getSpot());
             })
             .catch(error => {
                 const { code, message } = error;
