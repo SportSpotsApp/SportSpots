@@ -23,7 +23,6 @@ export default class SpotClass{
     public author: string="";
     public CreatedAt:string="";
     public image: string="";
-    //coordinates type to change with Coordinate instead of string(for debugging purpose)
     public latitude:number=0;
     public longitude:number=0;
 
@@ -37,7 +36,7 @@ export default class SpotClass{
                 latitude_param:number,
                 longitude_param:number
                 )
-                {
+    {
         this.sport=sport_param;
         this.spotDesc=spotDesc_param;
         this.spotLongDesc=spotLongDesc_param;

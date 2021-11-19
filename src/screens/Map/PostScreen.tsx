@@ -5,22 +5,22 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import GetLocation, { Location } from 'react-native-get-location'
 import SpotClass from '../../models/Spot';
-import {addSpot} from '../../API/spotAPI';
+import FirebaseRequest from '../../API/spotAPI';
 import auth from "@react-native-firebase/auth";
 
 
 const PostScreen = ({ navigation }: any) => {
     
+    let db=new FirebaseRequest();
     
-
     const [spotDesc, setSpotDesc] = useState('');
     const [spotLongDesc, setSpotLongDesc] = useState('');
     const [spotPostalCode, setSpotPostalCode] = useState('');
     const [spotCityName, setSpotCityName] = useState('');
+    const [spotSport, setSpotSport] = useState('');
 
     var PostalCode:number = +spotPostalCode;
     
-
     const handleSubmit = () => {
 
         GetLocation.getCurrentPosition({
@@ -28,9 +28,10 @@ const PostScreen = ({ navigation }: any) => {
             timeout: 20000,
             })
             .then(location => {
+                
                 var latitude:number = location.latitude;
                 var longitude:number = location.longitude;
-                let addedSpot=new SpotClass("tennis",
+                let addedSpot=new SpotClass(spotSport,
                                         spotDesc,
                                         spotLongDesc,
                                         PostalCode,
@@ -40,7 +41,7 @@ const PostScreen = ({ navigation }: any) => {
                                         latitude,
                                         longitude
                                         )
-                addSpot(addedSpot);
+                db.addSpot(addedSpot);
             })
             .catch(error => {
                 const { code, message } = error;
@@ -61,11 +62,19 @@ const PostScreen = ({ navigation }: any) => {
     return (
         <View style={styles.root}>
             <Text style={{ color: colors.text }}>Poster un spot</Text>
+
+            <CustomInput 
+                placeholder="Sport"
+                value={spotSport}
+                setValue={setSpotSport}
+            />
+
             <CustomInput
                 placeholder="Description courte"
                 value={spotDesc}
                 setValue={setSpotDesc}
             />
+
             <CustomInput
                 placeholder="Description longue"
                 value={spotLongDesc}
