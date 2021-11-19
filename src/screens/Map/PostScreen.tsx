@@ -61,15 +61,16 @@ const PostScreen = ({ navigation }: any) => {
 
     const theme = useTheme();
 
-    const [selectedLanguage, setSelectedLanguage] = useState("");
+    const [value, setValue] = useState("");
 
     return (
         <View style={styles.root}>
             <Text style={{ color: colors.text }}>Poster un spot</Text>
 
             <Custompicker
-                selectedLanguage={selectedLanguage}
-                setSelectedLanguage={setSelectedLanguage}
+                value={value}
+                setValue={setValue}
+                mode="dropdown"
             />
 
             <CustomInput
