@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
+import { Custompicker } from '../../components/CustomPicker/CustomPicker';
 import GetLocation, { Location } from 'react-native-get-location'
 import SpotClass from '../../models/Spot';
 import FirebaseRequest from '../../API/spotAPI';
@@ -10,37 +11,37 @@ import auth from "@react-native-firebase/auth";
 
 
 const PostScreen = ({ navigation }: any) => {
-    
-    let db=new FirebaseRequest();
-    
+
+    let db = new FirebaseRequest();
+
     const [spotDesc, setSpotDesc] = useState('');
     const [spotLongDesc, setSpotLongDesc] = useState('');
     const [spotPostalCode, setSpotPostalCode] = useState('');
     const [spotCityName, setSpotCityName] = useState('');
     const [spotSport, setSpotSport] = useState('');
 
-    var PostalCode:number = +spotPostalCode;
-    
+    var PostalCode: number = +spotPostalCode;
+
     const handleSubmit = () => {
 
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 20000,
-            })
+        })
             .then(location => {
-                
-                var latitude:number = location.latitude;
-                var longitude:number = location.longitude;
-                let addedSpot=new SpotClass(spotSport,
-                                        spotDesc,
-                                        spotLongDesc,
-                                        PostalCode,
-                                        spotCityName,
-                                        String(auth().currentUser?.email),
-                                        "image",
-                                        latitude,
-                                        longitude
-                                        )
+
+                var latitude: number = location.latitude;
+                var longitude: number = location.longitude;
+                let addedSpot = new SpotClass(spotSport,
+                    spotDesc,
+                    spotLongDesc,
+                    PostalCode,
+                    spotCityName,
+                    String(auth().currentUser?.email),
+                    "image",
+                    latitude,
+                    longitude
+                )
                 db.addSpot(addedSpot);
                 console.log(db.getSpot());
             })
@@ -48,10 +49,10 @@ const PostScreen = ({ navigation }: any) => {
                 const { code, message } = error;
                 console.warn(code, message);
             })
-        
-            
 
-        
+
+
+
 
         navigation.navigate('Map');
     }
@@ -60,14 +61,15 @@ const PostScreen = ({ navigation }: any) => {
 
     const theme = useTheme();
 
+    const [selectedLanguage, setSelectedLanguage] = useState("");
+
     return (
         <View style={styles.root}>
             <Text style={{ color: colors.text }}>Poster un spot</Text>
 
-            <CustomInput 
-                placeholder="Sport"
-                value={spotSport}
-                setValue={setSpotSport}
+            <Custompicker
+                selectedLanguage={selectedLanguage}
+                setSelectedLanguage={setSelectedLanguage}
             />
 
             <CustomInput
