@@ -1,4 +1,5 @@
 import Spot from '../../src/models/Spot';
+import {parse} from "@babel/core";
 
 const spots: Spot[] = [
   {
@@ -15,11 +16,9 @@ const spots: Spot[] = [
     spotPostalCode: 43000,
     spotCityName: 'Le Puy-en-Velay',
     author: 'Thibaud',
-    createAt: '02/04/2020',
-    coordinates: {
-      latitude: 28.3915637,
-      longitude: -16.6291304,
-    },
+    createdAt: '02/04/2020',
+    latitude: 45.042768,
+    longitude: 3.882936,
   },
   {
     id: '1',
@@ -35,11 +34,9 @@ const spots: Spot[] = [
     spotPostalCode: 43000,
     spotCityName: 'Le Puy-en-Velay',
     author: 'Thibaud',
-    createAt: '02/04/2020',
-    coordinates: {
-      latitude: 28.3915637,
-      longitude: -16.6291304,
-    },
+    createdAt: '02/04/2020',
+    latitude: 45.0419512,
+    longitude: 3.8833652,
   },
   {
     id: '2',
@@ -55,11 +52,9 @@ const spots: Spot[] = [
     spotPostalCode: 43000,
     spotCityName: 'Le Puy-en-Velay',
     author: 'Thibaud',
-    createAt: '02/04/2020',
-    coordinates: {
-      latitude: 28.3915637,
-      longitude: -16.6291304,
-    },
+    createdAt: '02/04/2020',
+    latitude: 45.0419512,
+    longitude: 3.8833652,
   },
   {
     id: '3',
@@ -75,11 +70,9 @@ const spots: Spot[] = [
     spotPostalCode: 43000,
     spotCityName: 'Le Puy-en-Velay',
     author: 'Thibaud',
-    createAt: '02/04/2020',
-    coordinates: {
-      latitude: 28.3915637,
-      longitude: -16.6291304,
-    },
+    createdAt: '02/04/2020',
+    latitude: 45.0419512,
+    longitude: 3.8833652,
   },
 ];
 

@@ -21,7 +21,7 @@ export default class SpotClass{
     public spotPostalCode: number;
     public spotCityName: string="";
     public author: string="";
-    public CreatedAt:string="";
+    public createdAt:string="";
     public image: string="";
     public latitude:number=0;
     public longitude:number=0;
@@ -47,6 +47,4 @@ export default class SpotClass{
         this.latitude=latitude_param;
         this.longitude=longitude_param;
     }
-
-    
 }
