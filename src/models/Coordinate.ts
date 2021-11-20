@@ -5,15 +5,13 @@ export default interface Coordinate {
 
 };*/
 
-export default class Coordinate
-{
+export default class Coordinate {
     public latitude: number;
     public longitude: number;
 
-    constructor(lat:number,long:number)
-    {
-        this.latitude=lat;
-        this.longitude=long;
+    constructor(lat: number, long: number) {
+        this.latitude = lat;
+        this.longitude = long;
     }
 }
 
