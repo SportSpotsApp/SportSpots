@@ -4,6 +4,7 @@ import SpotClass from "../models/Spot"
 
 export default class FirebaseRequest
 {
+    public Output : any = [];
     public addSpot(Spot:SpotClass)
     {
         firestore()
@@ -25,17 +26,17 @@ export default class FirebaseRequest
 
     public async getSpot()
     {
-        var SpotList: any = [];
 
         var snapshot = await firestore()
-        .collection('Spots')
-        .orderBy('createdAt')
+        .collection("Spots")
+        .orderBy("createAt")
         .get()
 
         snapshot.forEach((doc) => {
-            SpotList.push(doc.data());
+
+            this.Output.push(doc.data());
         });
 
-        return SpotList;
+        
     }
 }
