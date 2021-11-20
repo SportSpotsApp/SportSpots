@@ -8,6 +8,12 @@ interface ClassTypeProps {
     secureTextEntry?: boolean;
 }
 
+export enum StyleType {
+    PRIMARY = "PRIMARY",
+    SECONDARY = "SECONDARY",
+    TERTIARY = "TERTIARY"
+}
+
 const CustomInput = ({ value, setValue, placeholder, secureTextEntry = false }: ClassTypeProps) => {
     return (
         <View style={styles.container}>

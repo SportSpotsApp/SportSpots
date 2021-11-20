@@ -35,8 +35,8 @@ const MapScreen = () => {
 
         const selectedSpot = spots[index];
         const region = {
-            latitude: selectedSpot.coordinates.latitude,
-            longitude: selectedSpot.coordinates.longitude,
+            latitude: selectedSpot.latitude,
+            longitude: selectedSpot.longitude,
             latitudeDelta: 0.8,
             longitudeDelta: 0.8,
         }
@@ -57,15 +57,18 @@ const MapScreen = () => {
                              latitudeDelta: 0.0922,
                              longitudeDelta: 0.0421
                          }}>
-                    {spots.map(spots => (
+                    {spots.map(spot => (
                         <CustomMarker
-                        coordinate={spots.coordinates}
-                        sport={spots.sport}
-                        isSelected={spots.id === selectedPlaceId}
-                        onPress={() => {
-                            setSelectedPlaceId(spots.id);
+                        position={{
+                            latitude: spot.latitude,
+                            longitude: spot.longitude
                         }}
-                        key={spots.id}
+                        sport={spot.sport}
+                        isSelected={spot.id === selectedPlaceId}
+                        onPress={() => {
+                            setSelectedPlaceId(spot.id);
+                        }}
+                        key={spot.id}
                         />
                     ))}
                 </MapView>

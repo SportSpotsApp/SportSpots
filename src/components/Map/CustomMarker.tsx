@@ -1,18 +1,19 @@
 import React from "react";
 import {View, Text} from "react-native";
-import {LatLng, MapEvent, Marker} from "react-native-maps";
+import {AnimatedRegion, LatLng, MapEvent, Marker} from "react-native-maps";
 
 interface CustomMarkerType {
-    coordinate: LatLng,
+    position: LatLng,
     sport: string,
     isSelected: boolean,
     onPress: (event: MapEvent<{ action: 'marker-press'; id: string }>) => void,
     key: string;
 }
 
-const CustomMarker = ({ coordinate, sport, isSelected, onPress, key }: CustomMarkerType ) => {
+const CustomMarker = ({ position, sport, isSelected, onPress, key }: CustomMarkerType ) => {
+
     return (
-        <Marker coordinate={coordinate} onPress={onPress}>
+        <Marker coordinate={position} onPress={onPress}>
             <View style={{
                 backgroundColor: isSelected ? 'black' : 'white',
                 padding: 5,
