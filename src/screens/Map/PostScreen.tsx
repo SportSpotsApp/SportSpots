@@ -8,6 +8,7 @@ import GetLocation, { Location } from 'react-native-get-location'
 import SpotClass from '../../models/Spot';
 import FirebaseRequest from '../../API/spotAPI';
 import auth from "@react-native-firebase/auth";
+import {Sport} from '../../models/SportParser/Sport';
 
 
 const PostScreen = ({ navigation }: any) => {
@@ -20,7 +21,8 @@ const PostScreen = ({ navigation }: any) => {
     const [spotCityName, setSpotCityName] = useState('');
     const [spotSport, setSpotSport] = useState("");
     const sportList =
-        [["Football", "football"],
+        [["Empty", "empty"],
+        ["Football", "football"],
         ["Basketball", "basketball"],
         ["Volleyball", "volleyball"],
         ["Tennis", "tennis"],
@@ -56,16 +58,24 @@ const PostScreen = ({ navigation }: any) => {
                     longitude
                 )
                 db.addSpot(addedSpot);
-                //let list = db.getSpot();
-                db.getSpot();
-                console.log(db.Output);
+                
+                
+                
             })
             .catch(error => {
                 const { code, message } = error;
                 console.warn(code, message);
             })
         navigation.navigate('Map');
+        
     }
+
+    const ReturnValue = () => {
+        db.getSpotbySport("volleyball");
+        console.log(db.Output);
+        db.Output.length = 0;
+    }
+
 
     const { colors } = useTheme();
 
@@ -106,6 +116,10 @@ const PostScreen = ({ navigation }: any) => {
             <CustomButton
                 text="Poster"
                 onPress={() => { handleSubmit() }}
+            />
+            <CustomButton
+                text="Get"
+                onPress={() => { ReturnValue() }}
             />
         </View>
     );

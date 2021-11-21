@@ -5,6 +5,7 @@ import SpotClass from "../models/Spot"
 export default class FirebaseRequest
 {
     public Output : any = [];
+
     public addSpot(Spot:SpotClass)
     {
         firestore()
@@ -38,5 +39,33 @@ export default class FirebaseRequest
         });
 
         
+    }
+
+    public async getNearestSpot()
+    {
+        var snapshot = await firestore()
+        .collection("Spots")
+        .orderBy("createAt")
+        .get()
+
+        snapshot.forEach((doc) => {
+
+            this.Output.push(doc.data());
+        });
+    }
+
+    public async getSpotbySport(Sport:string){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('sport','==', Sport)
+        .get()
+
+        snapshot.forEach((doc) => {
+            this.Output.push(doc.data());
+        });
+    }
+    public getOutput(){
+        return this.Output;
     }
 }
