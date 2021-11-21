@@ -65,7 +65,40 @@ export default class FirebaseRequest
             this.Output.push(doc.data());
         });
     }
-    public getOutput(){
-        return this.Output;
+
+    public async getSpotbyPostalCode(Code:number){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('spotPostalCode','==', Code)
+        .get()
+
+        snapshot.forEach((doc) => {
+            this.Output.push(doc.data());
+        });
+    }
+
+    public async getSpotbyUser(User:string){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('author','==', User)
+        .get()
+
+        snapshot.forEach((doc) => {
+            this.Output.push(doc.data());
+        });
+    }
+    
+    public async getSpotbyCity(City:string){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('spotCityName','==', City)
+        .get()
+
+        snapshot.forEach((doc) => {
+            this.Output.push(doc.data());
+        });
     }
 }

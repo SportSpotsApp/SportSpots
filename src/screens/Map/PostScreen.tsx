@@ -58,9 +58,6 @@ const PostScreen = ({ navigation }: any) => {
                     longitude
                 )
                 db.addSpot(addedSpot);
-                
-                
-                
             })
             .catch(error => {
                 const { code, message } = error;
@@ -72,6 +69,7 @@ const PostScreen = ({ navigation }: any) => {
 
     const ReturnValue = () => {
         db.getSpotbySport("volleyball");
+        db.getSpotbyUser(String(auth().currentUser?.email));
         console.log(db.Output);
         db.Output.length = 0;
     }
