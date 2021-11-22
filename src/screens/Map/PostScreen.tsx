@@ -68,10 +68,8 @@ const PostScreen = ({ navigation }: any) => {
     }
 
     const ReturnValue = () => {
-        db.getSpotbySport("volleyball");
-        db.getSpotbyUser(String(auth().currentUser?.email));
+        db.getSpot();
         console.log(db.Output);
-        db.Output.length = 0;
     }
 
 

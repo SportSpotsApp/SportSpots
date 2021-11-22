@@ -38,21 +38,9 @@ export default class FirebaseRequest
             this.Output.push(doc.data());
         });
 
-        
+        console.log(this.Output);
     }
-
-    public async getNearestSpot()
-    {
-        var snapshot = await firestore()
-        .collection("Spots")
-        .orderBy("createAt")
-        .get()
-
-        snapshot.forEach((doc) => {
-
-            this.Output.push(doc.data());
-        });
-    }
+    
 
     public async getSpotbySport(Sport:string){
 
