@@ -41,21 +41,6 @@ export default class Coordinate {
         });
         return filteredSpots;
     }
-
-    // Set to the current location
-    public setToCurrentLocation(): void {
-        GetLocation.getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 20000,
-        })
-            .then((location: Location) => {
-                this.latitude = location.latitude
-                this.longitude = location.longitude;
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
 }
 
 
