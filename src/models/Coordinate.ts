@@ -29,6 +29,14 @@ export default class Coordinate {
         const d = R * c; // Distance in km
         return d;
     }
+
+    // Distance filter
+    public distanceFilter(spots: Coordinate[], Radius: number): Coordinate[] {
+        const filteredSpots = spots.filter(spot => {
+            return this.haversineDistance(spot) <= Radius;
+        });
+        return filteredSpots;
+    }
 }
 
 
