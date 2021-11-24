@@ -3,11 +3,26 @@ import {View, Text} from "react-native";
 import {CustomButton} from "./CustomButton";
 import {
     GoogleSignin,
-    GoogleSigninButton,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
+import auth from "@react-native-firebase/auth";
+import {CommonActions, useNavigation} from "@react-navigation/native";
 
 export const SocialSignInButtons = () => {
+
+    const navigation = useNavigation();
+    const isConnected = () => {
+        navigation.dispatch(
+            CommonActions.navigate({
+                name: 'ConfirmEmail',
+                params: {
+                    headerLeft: null,
+                    gestureEnabled: false,
+                },
+            })
+        )
+    }
+
     GoogleSignin.configure({
         webClientId: "911547189138-a8hason64p4cqki0spv3pab30higdere.apps.googleusercontent.com"
     });
@@ -21,6 +36,10 @@ export const SocialSignInButtons = () => {
         try {
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
+            const googleCredential = auth.GoogleAuthProvider.credential(userInfo.idToken);
+            if(googleCredential){
+                isConnected();
+            }
             //this.setState({ userInfo });
         } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
