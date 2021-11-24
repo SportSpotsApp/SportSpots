@@ -36,7 +36,7 @@ export default class Coordinate {
     // Distance filter
     /// @param spots: array of spots
     /// @param radius: distance in km
-    public distanceFilter(spots: SpotClass[], radius: number): SpotClass[] {
+    public distanceFilter(spots: SpotClass[], radius: number, maxArraySize): SpotClass[] {
         var filteredSpots: SpotClass[] = [];
         for (let i = 0; i < spots.length; i++) {
             const spotCoordinates: Coordinate = new Coordinate(spots[i].latitude, spots[i].longitude);
@@ -49,6 +49,11 @@ export default class Coordinate {
         filteredSpots.sort((a, b) => {
             return this.haversineDistance(new Coordinate(a.latitude, a.longitude)) - this.haversineDistance(new Coordinate(b.latitude, b.longitude));
         });
+
+        // Truncate array
+        if (filteredSpots.length > maxArraySize) {
+            filteredSpots = filteredSpots.slice(0, maxArraySize);
+        }
 
         return filteredSpots;
     }
