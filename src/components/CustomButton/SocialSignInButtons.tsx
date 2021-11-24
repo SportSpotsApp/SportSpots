@@ -1,10 +1,7 @@
 import React from "react";
 import {View, Text} from "react-native";
 import {CustomButton} from "./CustomButton";
-import {
-    GoogleSignin,
-    statusCodes,
-} from '@react-native-google-signin/google-signin';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import auth from "@react-native-firebase/auth";
 import {CommonActions, useNavigation} from "@react-navigation/native";
 
@@ -31,27 +28,15 @@ export const SocialSignInButtons = () => {
         console.warn("sign in fb");
     }
 
-    const onSignInGoogle = async () => {
-        console.warn("sign in google");
-        try {
-            await GoogleSignin.hasPlayServices();
-            const userInfo = await GoogleSignin.signIn();
-            const googleCredential = auth.GoogleAuthProvider.credential(userInfo.idToken);
-            if(googleCredential){
-                isConnected();
-            }
-            //this.setState({ userInfo });
-        } catch (error) {
-            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-                // user cancelled the login flow
-            } else if (error.code === statusCodes.IN_PROGRESS) {
-                // operation (e.g. sign in) is in progress already
-            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-                // play services not available or outdated
-            } else {
-                // some other error happened
-            }
-        }
+    async function onGoogleButtonPress() {
+        // Get the users ID token
+        const { idToken } = await GoogleSignin.signIn();
+
+        // Create a Google credential with the token
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+        // Sign-in the user with the credential
+        return auth().signInWithCredential(googleCredential);
     }
 
     const onSignInApple = () => {
@@ -69,7 +54,7 @@ export const SocialSignInButtons = () => {
 
             <CustomButton
                 text="Se connecter avec Google"
-                onPress={onSignInGoogle}
+                onPress={onGoogleButtonPress}
                 bgColor="#FAE9EA"
                 fgColor="#DD4D44"
             />
