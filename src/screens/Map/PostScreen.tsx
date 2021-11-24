@@ -4,11 +4,11 @@ import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { Custompicker } from '../../components/CustomPicker/CustomPicker';
-import GetLocation, { Location } from 'react-native-get-location'
 import SpotClass from '../../models/Spot';
+import GetLocation, { Location } from 'react-native-get-location'
 import FirebaseRequest from '../../API/spotAPI';
 import auth from "@react-native-firebase/auth";
-import {Sport} from '../../models/SportParser/Sport';
+import { Sport } from '../../models/SportParser/Sport';
 
 
 const PostScreen = ({ navigation }: any) => {
@@ -38,7 +38,6 @@ const PostScreen = ({ navigation }: any) => {
     var PostalCode: number = +spotPostalCode;
 
     const handleSubmit = () => {
-
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 20000,
@@ -64,7 +63,6 @@ const PostScreen = ({ navigation }: any) => {
                 console.warn(code, message);
             })
         navigation.navigate('Map');
-        
     }
 
     const ReturnValue = () => {
