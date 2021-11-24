@@ -56,7 +56,6 @@ const MapScreen = () => {
                 longitudeDelta: 0.05,
             })
 
-            console.log(region)
             map.current?.animateToRegion(region);
         })
         .catch(error => {
