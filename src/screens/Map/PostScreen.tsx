@@ -37,11 +37,10 @@ const PostScreen = ({ navigation }: any) => {
 
     var PostalCode: number = +spotPostalCode;
 
+    var currentLocation: Coordinate = new Coordinate(1, 2);
+    currentLocation.setToCurrentLocation();
+
     const handleSubmit = () => {
-
-        var currentLocation: Coordinate = new Coordinate(0, 0);
-        currentLocation.setToCurrentLocation();
-
         var latitude: number = currentLocation.latitude;
         var longitude: number = currentLocation.longitude;
         let addedSpot = new SpotClass(spotSport,
