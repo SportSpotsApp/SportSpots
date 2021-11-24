@@ -36,7 +36,7 @@ export default class Coordinate {
     // Distance filter
     /// @param spots: array of spots
     /// @param radius: distance in km
-    public distanceFilter(spots: SpotClass[], radius: number, maxArraySize): SpotClass[] {
+    public distanceFilter(spots: SpotClass[], radius: number, maxArraySize: number): SpotClass[] {
         var filteredSpots: SpotClass[] = [];
         for (let i = 0; i < spots.length; i++) {
             const spotCoordinates: Coordinate = new Coordinate(spots[i].latitude, spots[i].longitude);
