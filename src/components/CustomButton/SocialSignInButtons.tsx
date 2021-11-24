@@ -1,15 +1,38 @@
 import React from "react";
 import {View, Text} from "react-native";
 import {CustomButton} from "./CustomButton";
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import {CommonActions, useNavigation} from "@react-navigation/native";
 
 export const SocialSignInButtons = () => {
+
+    const navigation = useNavigation();
+    const isConnected = () => {
+        navigation.dispatch(
+            CommonActions.navigate({
+                name: 'ConfirmEmail',
+                params: {
+                    headerLeft: null,
+                    gestureEnabled: false,
+                },
+            })
+        )
+    }
 
     const onSignInFacebook = () => {
         console.warn("sign in fb");
     }
 
-    const onSignInGoogle = () => {
-        console.warn("sign in google");
+    async function onGoogleButtonPress() {
+        // Get the users ID token
+        const { idToken } = await GoogleSignin.signIn();
+
+        // Create a Google credential with the token
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+        // Sign-in the user with the credential
+        return auth().signInWithCredential(googleCredential);
     }
 
     const onSignInApple = () => {
@@ -27,7 +50,7 @@ export const SocialSignInButtons = () => {
 
             <CustomButton
                 text="Se connecter avec Google"
-                onPress={onSignInGoogle}
+                onPress={onGoogleButtonPress}
                 bgColor="#FAE9EA"
                 fgColor="#DD4D44"
             />
