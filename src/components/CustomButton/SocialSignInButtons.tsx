@@ -20,10 +20,6 @@ export const SocialSignInButtons = () => {
         )
     }
 
-    GoogleSignin.configure({
-        webClientId: "911547189138-2kvefkud52rr17lq01g5kljtmffbdadb.apps.googleusercontent.com"
-    });
-
     const onSignInFacebook = () => {
         console.warn("sign in fb");
     }
