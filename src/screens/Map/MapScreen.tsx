@@ -82,14 +82,13 @@ const MapScreen = () => {
                         renderItem={({ item }: {item: Spot}) => <SpotCarrousel spot={item} />}
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        snapToInterval={width - 60}
+                        snapToInterval={0.8125 * width}
                         snapToAlignment={"center"}
                         decelerationRate={"fast"}
                         viewabilityConfig={viewConfig.current}
                         onViewableItemsChanged={onViewChanged.current}
                     />
                 </View>
-
             </View>
     );
 }

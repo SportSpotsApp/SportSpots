@@ -2,7 +2,7 @@ import React from "react";
 import {View, Text, StyleSheet, Image, ImageBackground, Pressable} from "react-native";
 import {CommonActions, useNavigation} from "@react-navigation/native";
 
-const HomeScreen = (props : any) => {
+const HomeScreen = () => {
 
     const navigation = useNavigation();
 

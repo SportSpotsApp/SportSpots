@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "911547189138-2kvefkud52rr17lq01g5kljtmffbdadb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sportspots",
+            "certificate_hash": "be3cac70b5f40e643294fd52c2c4ed6b24d48152"
+          }
+        },
+        {
           "client_id": "911547189138-a8hason64p4cqki0spv3pab30higdere.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -38,7 +38,7 @@ const CustomTabBarButton = ({ children, onPress }: any) => (
 const Tabs = () => {
     return (
 
-        <Tab.Navigator initialRouteName="HomeNavigator" screenOptions={{ tabBarActiveTintColor: '#e91e63', }}>
+        <Tab.Navigator initialRouteName="HomeNavigator" screenOptions={{ tabBarActiveTintColor: '#e91e63' }}>
 
             <Tab.Screen name="HomeNavigator" component={HomeNavigator} options={{
                 tabBarShowLabel: false,
