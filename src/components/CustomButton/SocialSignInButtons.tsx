@@ -1,8 +1,8 @@
 import React from "react";
 import {View, Text} from "react-native";
 import {CustomButton} from "./CustomButton";
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import auth from "@react-native-firebase/auth";
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {CommonActions, useNavigation} from "@react-navigation/native";
 
 export const SocialSignInButtons = () => {
@@ -21,7 +21,7 @@ export const SocialSignInButtons = () => {
     }
 
     GoogleSignin.configure({
-        webClientId: "911547189138-a8hason64p4cqki0spv3pab30higdere.apps.googleusercontent.com"
+        webClientId: "911547189138-2kvefkud52rr17lq01g5kljtmffbdadb.apps.googleusercontent.com"
     });
 
     const onSignInFacebook = () => {
