@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { FlatList, useWindowDimensions, View } from 'react-native';
+import React, { createRef, useEffect, useRef, useState } from 'react';
+import { FlatList, useWindowDimensions, View, Animated } from 'react-native';
 import MapView, { Coordinate, PROVIDER_GOOGLE } from 'react-native-maps';
 import GooglePlaceInput from "./GooglePlaceInput";
 import GetLocation, { Location } from 'react-native-get-location'
@@ -14,7 +14,7 @@ const MapScreen = () => {
     const [selectedPlaceId, setSelectedPlaceId] = useState('');
 
     const flatlist: React.RefObject<FlatList> = useRef(null);
-    const map: React.RefObject<MapView> = useRef(null)
+    const map: React.RefObject<MapView> = createRef();
 
     const viewConfig = useRef({ itemVisiblePercentThreshold: 30 })
     const onViewChanged = useRef(({ viewableItems }: any) => {
@@ -41,37 +41,35 @@ const MapScreen = () => {
             longitudeDelta: 0.8,
         }
 
-        map.current?.animateToRegion(region);
+        map.current?.animateToRegion(region, 1000);
     }, [selectedPlaceId])
-
-    var initialRegion: CustomCoordinates = new CustomCoordinates(0, 0);
 
     GetLocation.getCurrentPosition({
         enableHighAccuracy: true,
         timeout: 20000,
     })
         .then(location => {
-            initialRegion.latitude = location.latitude;
-            initialRegion.longitude = location.longitude;
+            const region = ({
+                latitude: location.latitude,
+                longitude: location.longitude,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
+            })
+
+            console.log(region)
+            map.current?.animateToRegion(region);
         })
         .catch(error => {
-            const { code, message } = error;
-            console.warn(code, message);
+            console.log(error.message);
         })
 
     return (
         <View style={{ flex: 1 }}>
             <GooglePlaceInput />
             <MapView style={{ flex: 1 }}
-                ref={() => map}
+                ref={map}
                 provider={PROVIDER_GOOGLE}
-                showsUserLocation
-                initialRegion={{
-                    latitude: initialRegion.latitude,
-                    longitude: initialRegion.longitude,
-                    latitudeDelta: 0.05,
-                    longitudeDelta: 0.05
-                }}>
+                showsUserLocation>
                 {spots.map(spot => (
                     <CustomMarker
                         position={{
@@ -105,7 +103,7 @@ const MapScreen = () => {
                 />
             </View>
 
-        </View>
+        </View >
     );
 }
 
