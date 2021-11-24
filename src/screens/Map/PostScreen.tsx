@@ -4,11 +4,11 @@ import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { Custompicker } from '../../components/CustomPicker/CustomPicker';
-import GetLocation, { Location } from 'react-native-get-location'
+import Coordinate from '../../models/Coordinate';
 import SpotClass from '../../models/Spot';
 import FirebaseRequest from '../../API/spotAPI';
 import auth from "@react-native-firebase/auth";
-import {Sport} from '../../models/SportParser/Sport';
+import { Sport } from '../../models/SportParser/Sport';
 
 
 const PostScreen = ({ navigation }: any) => {
@@ -37,34 +37,27 @@ const PostScreen = ({ navigation }: any) => {
 
     var PostalCode: number = +spotPostalCode;
 
+    var currentLocation: Coordinate = new Coordinate(1, 2);
+    currentLocation.setToCurrentLocation();
+
     const handleSubmit = () => {
+        var latitude: number = currentLocation.latitude;
+        var longitude: number = currentLocation.longitude;
+        let addedSpot = new SpotClass(spotSport,
+            spotDesc,
+            spotLongDesc,
+            PostalCode,
+            spotCityName,
+            String(auth().currentUser?.email),
+            "image",
+            latitude,
+            longitude
+        )
+        db.addSpot(addedSpot);
 
-        GetLocation.getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 20000,
-        })
-            .then(location => {
 
-                var latitude: number = location.latitude;
-                var longitude: number = location.longitude;
-                let addedSpot = new SpotClass(spotSport,
-                    spotDesc,
-                    spotLongDesc,
-                    PostalCode,
-                    spotCityName,
-                    String(auth().currentUser?.email),
-                    "image",
-                    latitude,
-                    longitude
-                )
-                db.addSpot(addedSpot);
-            })
-            .catch(error => {
-                const { code, message } = error;
-                console.warn(code, message);
-            })
         navigation.navigate('Map');
-        
+
     }
 
     const ReturnValue = () => {
