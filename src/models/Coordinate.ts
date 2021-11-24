@@ -1,4 +1,5 @@
 import GetLocation, { Location } from 'react-native-get-location'
+import SpotClass from './Spot';
 
 // Degree to radian converter
 function deg2rad(deg: number): number {
@@ -35,10 +36,20 @@ export default class Coordinate {
     // Distance filter
     /// @param spots: array of spots
     /// @param radius: distance in km
-    public distanceFilter(spots: Coordinate[], radius: number): Coordinate[] {
-        const filteredSpots = spots.filter(spot => {
-            return this.haversineDistance(spot) <= radius;
+    public distanceFilter(spots: SpotClass[], radius: number): SpotClass[] {
+        var filteredSpots: SpotClass[] = [];
+        for (let i = 0; i < spots.length; i++) {
+            const spotCoordinates: Coordinate = new Coordinate(spots[i].latitude, spots[i].longitude);
+            if (this.haversineDistance(spotCoordinates) <= radius) {
+                filteredSpots.push(spots[i]);
+            }
+        }
+
+        // Sort by distance
+        filteredSpots.sort((a, b) => {
+            return this.haversineDistance(new Coordinate(a.latitude, a.longitude)) - this.haversineDistance(new Coordinate(b.latitude, b.longitude));
         });
+
         return filteredSpots;
     }
 }
