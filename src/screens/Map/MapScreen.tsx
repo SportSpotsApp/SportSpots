@@ -4,10 +4,16 @@ import MapView, { Coordinate, PROVIDER_GOOGLE } from 'react-native-maps';
 import GooglePlaceInput from "./GooglePlaceInput";
 import GetLocation, { Location } from 'react-native-get-location'
 import CustomCoordinates from '../../models/Coordinate';
-import spots from '../../../assets/data/spots'
 import CustomMarker from "../../components/Map/CustomMarker";
 import SpotCarrousel from "../../components/Spot/SpotCarrousel";
 import Spot from '../../models/Spot';
+import FirebaseRequest from '../../API/spotAPI';
+
+const api = new FirebaseRequest()
+let spots: Spot[];
+api.getSpot();
+
+setTimeout(function(){spots = api.Output;});
 
 const MapScreen = () => {
 

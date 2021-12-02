@@ -8,7 +8,7 @@ export default class FirebaseRequest
 {
     //DATA OUTPUT
     public Output:any= [];
-    public nbSpot:number=0;
+    public nbSpot:string = '0';
 
 
     //SETTERS
@@ -252,6 +252,6 @@ export default class FirebaseRequest
         await firestore()
         .collection("Spots")
         .get()
-        .then((size) => {this.nbSpot = size.size});
+        .then((size) => {this.nbSpot = size.size.toString()});
     }
 }

@@ -1,8 +1,13 @@
 import Spot from '../../src/models/Spot';
 import {parse} from "@babel/core";
+import  FirebaseRequest from "../../src/API/spotAPI"
 
-const spots: Spot[] = [
-  {
+const api = new FirebaseRequest()
+
+api.getSpot();
+
+setTimeout(function(){const spots: Spot[] = api.Output;});
+  /*{
     id: '0',
     image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/1.jpg',
     sport: 'Tenis',
@@ -94,4 +99,4 @@ const spots: Spot[] = [
   },
 ];
 
-export default spots;
+export default spots;*/

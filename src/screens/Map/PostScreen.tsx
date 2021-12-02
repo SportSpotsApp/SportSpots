@@ -48,7 +48,7 @@ const PostScreen = ({ navigation }: any) => {
                 var latitude: number = location.latitude;
                 var longitude: number = location.longitude;
                 db.getId();
-                var spotid:number;
+                var spotid:string;
                 
                 db.getId()
                 setTimeout(function(){
@@ -78,7 +78,8 @@ const PostScreen = ({ navigation }: any) => {
     }
 
     const ReturnValue = () => {
-        
+        db.modifyPostalCode(0,69003)
+        console.log("It's ok");
     };
 
 
