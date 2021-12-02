@@ -1,16 +1,23 @@
 import firebase from '@react-native-firebase/app';
 import firestore from '@react-native-firebase/firestore';
 import SpotClass from "../models/Spot" 
+import ClassCoordinate from '../models/Coordinate';
+import Coordinate from '../models/Coordinate';
 
 export default class FirebaseRequest
 {
-    public Output : any = [];
+    //DATA OUTPUT
+    public Output:any= [];
+    public nbSpot:number=0;
 
+
+    //SETTERS
     public addSpot(Spot:SpotClass)
     {
         firestore()
         .collection('Spots')
         .add({
+            spotId: Spot.id,
             spotDesc: Spot.spotDesc,
             sport: Spot.sport,
             spotLongDesc: Spot.spotLongDesc,
@@ -25,6 +32,102 @@ export default class FirebaseRequest
         .catch((error) => console.log(error));
     }
 
+    public async modifyDesc(Id:Number, modifiedDesc:String){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('spotId','==', Id)
+        .get()
+
+        snapshot.forEach((doc) => {
+            firestore().collection("Spots").doc(doc.id).update({spotDesc: modifiedDesc});
+        });
+    }
+
+    public async modifyLongDesc(Id:Number, modifiedLongDesc:String){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('spotId','==', Id)
+        .get()
+
+        snapshot.forEach((doc) => {
+            firestore().collection("Spots").doc(doc.id).update({spotLongDesc: modifiedLongDesc});
+        });
+    }
+
+    public async modifyCityName(Id:Number, modifiedCityName:String){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('spotId','==', Id)
+        .get()
+
+        snapshot.forEach((doc) => {
+           firestore().collection("Spots").doc(doc.id).update({spotCityName: modifiedCityName});
+        });
+    }
+
+    public async modifyPostalCode(Id:Number, modifiedPostalCode:Number){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('spotId','==', Id)
+        .get()
+
+        snapshot.forEach((doc) => {
+            firestore().collection("Spots").doc(doc.id).update({spotPostalCode: modifiedPostalCode});
+        });
+    }
+
+    public async modifySport(Id:Number, modifiedSport:String){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('spotId','==', Id)
+        .get()
+
+        snapshot.forEach((doc) => {
+            firestore().collection("Spots").doc(doc.id).update({sport: modifiedSport});
+        });
+    }
+
+    
+
+
+
+
+    //GETTERS
+    public async getSpotInRadius(position:Coordinate)
+    {
+        var snapshot = await firestore()
+        .collection("Spots")
+        .orderBy("createAt")
+        .get()
+
+        snapshot.forEach((doc) => {
+
+            let Spot = new SpotClass(doc.data().spotId,
+                doc.data().sport,
+                doc.data().spotDesc,
+                doc.data().spotLongDesc,
+                doc.data().spotPostalCode,
+                doc.data().spotCityName,
+                doc.data().author,
+                doc.data().image,
+                doc.data().latitude,
+                doc.data().longitude
+            )
+            this.Output.push(Spot);
+
+            this.Output = position.distanceFilter(this.Output,50,20);
+
+        });
+
+    }
+
+
+
     public async getSpot()
     {
 
@@ -34,11 +137,20 @@ export default class FirebaseRequest
         .get()
 
         snapshot.forEach((doc) => {
-
-            this.Output.push(doc.data());
+            let Spot = new SpotClass(doc.data().spotId,
+                doc.data().sport,
+                doc.data().spotDesc,
+                doc.data().spotLongDesc,
+                doc.data().spotPostalCode,
+                doc.data().spotCityName,
+                doc.data().author,
+                doc.data().image,
+                doc.data().latitude,
+                doc.data().longitude
+            )
+            this.Output.push(Spot);
         });
 
-        console.log(this.Output);
     }
     
 
@@ -50,7 +162,18 @@ export default class FirebaseRequest
         .get()
 
         snapshot.forEach((doc) => {
-            this.Output.push(doc.data());
+            let Spot = new SpotClass(doc.data().spotId,
+                doc.data().sport,
+                doc.data().spotDesc,
+                doc.data().spotLongDesc,
+                doc.data().spotPostalCode,
+                doc.data().spotCityName,
+                doc.data().author,
+                doc.data().image,
+                doc.data().latitude,
+                doc.data().longitude
+            )
+            this.Output.push(Spot);
         });
     }
 
@@ -62,7 +185,18 @@ export default class FirebaseRequest
         .get()
 
         snapshot.forEach((doc) => {
-            this.Output.push(doc.data());
+            let Spot = new SpotClass(doc.data().spotId,
+                doc.data().sport,
+                doc.data().spotDesc,
+                doc.data().spotLongDesc,
+                doc.data().spotPostalCode,
+                doc.data().spotCityName,
+                doc.data().author,
+                doc.data().image,
+                doc.data().latitude,
+                doc.data().longitude
+            )
+            this.Output.push(Spot);
         });
     }
 
@@ -74,7 +208,18 @@ export default class FirebaseRequest
         .get()
 
         snapshot.forEach((doc) => {
-            this.Output.push(doc.data());
+            let Spot = new SpotClass(doc.data().spotId,
+                doc.data().sport,
+                doc.data().spotDesc,
+                doc.data().spotLongDesc,
+                doc.data().spotPostalCode,
+                doc.data().spotCityName,
+                doc.data().author,
+                doc.data().image,
+                doc.data().latitude,
+                doc.data().longitude
+            )
+            this.Output.push(Spot);
         });
     }
     
@@ -86,7 +231,27 @@ export default class FirebaseRequest
         .get()
 
         snapshot.forEach((doc) => {
-            this.Output.push(doc.data());
+            let Spot = new SpotClass(doc.data().spotId,
+                doc.data().sport,
+                doc.data().spotDesc,
+                doc.data().spotLongDesc,
+                doc.data().spotPostalCode,
+                doc.data().spotCityName,
+                doc.data().author,
+                doc.data().image,
+                doc.data().latitude,
+                doc.data().longitude
+            )
+            this.Output.push(Spot);
         });
+
+        
+    }
+
+    public async getId(){
+        await firestore()
+        .collection("Spots")
+        .get()
+        .then((size) => {this.nbSpot = size.size});
     }
 }

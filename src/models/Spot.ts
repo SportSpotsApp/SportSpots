@@ -14,7 +14,7 @@ import Coordinate from './Coordinate';
 }*/
 
 export default class SpotClass{
-    public id : string="";
+    public id : number;
     public sport: string="";
     public spotDesc: string="";
     public spotLongDesc: string="";
@@ -26,7 +26,9 @@ export default class SpotClass{
     public latitude:number=0;
     public longitude:number=0;
 
-    constructor(sport_param:string,
+    constructor(
+                id_param:number,
+                sport_param:string,
                 spotDesc_param:string,
                 spotLongDesc_param:string,
                 sportPostalCode_param:number,
@@ -37,6 +39,7 @@ export default class SpotClass{
                 longitude_param:number
                 )
     {
+        this.id = id_param;
         this.sport=sport_param;
         this.spotDesc=spotDesc_param;
         this.spotLongDesc=spotLongDesc_param;

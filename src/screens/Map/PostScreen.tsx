@@ -9,6 +9,7 @@ import GetLocation, { Location } from 'react-native-get-location'
 import FirebaseRequest from '../../API/spotAPI';
 import auth from "@react-native-firebase/auth";
 import { Sport } from '../../models/SportParser/Sport';
+import Coordinate from '../../models/Coordinate';
 
 
 const PostScreen = ({ navigation }: any) => {
@@ -46,17 +47,28 @@ const PostScreen = ({ navigation }: any) => {
 
                 var latitude: number = location.latitude;
                 var longitude: number = location.longitude;
-                let addedSpot = new SpotClass(spotSport,
-                    spotDesc,
-                    spotLongDesc,
-                    PostalCode,
-                    spotCityName,
-                    String(auth().currentUser?.email),
-                    "image",
-                    latitude,
-                    longitude
-                )
-                db.addSpot(addedSpot);
+                db.getId();
+                var spotid:number;
+                
+                db.getId()
+                setTimeout(function(){
+                    spotid = db.nbSpot;
+                    
+                        let addedSpot = new SpotClass(
+                            spotid,
+                            spotSport,
+                            spotDesc,
+                            spotLongDesc,
+                            PostalCode,
+                            spotCityName,
+                            String(auth().currentUser?.email),
+                            "image",
+                            latitude,
+                            longitude
+                        )
+                        db.addSpot(addedSpot);
+                },1000); 
+                 
             })
             .catch(error => {
                 const { code, message } = error;
@@ -66,9 +78,8 @@ const PostScreen = ({ navigation }: any) => {
     }
 
     const ReturnValue = () => {
-        db.getSpot();
-        console.log(db.Output);
-    }
+        
+    };
 
 
     const { colors } = useTheme();
