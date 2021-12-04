@@ -21,6 +21,7 @@ const PostScreen = ({ navigation }: any) => {
     const [spotPostalCode, setSpotPostalCode] = useState('');
     const [spotCityName, setSpotCityName] = useState('');
     const [spotSport, setSpotSport] = useState("");
+    const [spotImage, setSpotImage] = useState("");
     const sportList =
         [["Empty", "empty"],
         ["Football", "football"],
@@ -62,7 +63,7 @@ const PostScreen = ({ navigation }: any) => {
                             PostalCode,
                             spotCityName,
                             String(auth().currentUser?.email),
-                            "image",
+                            spotImage,
                             latitude,
                             longitude
                         )
@@ -118,6 +119,11 @@ const PostScreen = ({ navigation }: any) => {
                 placeholder="Ville"
                 value={spotCityName}
                 setValue={setSpotCityName}
+            />
+            <CustomInput
+                placeholder="lien de l'image"
+                value={spotImage}
+                setValue={setSpotImage}
             />
             <CustomButton
                 text="Poster"
