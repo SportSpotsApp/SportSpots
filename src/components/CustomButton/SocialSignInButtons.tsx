@@ -7,6 +7,8 @@ import {CommonActions, useNavigation} from "@react-navigation/native";
 
 export const SocialSignInButtons = () => {
 
+    GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
     const navigation = useNavigation();
     const isConnected = () => {
         navigation.dispatch(
@@ -20,14 +22,23 @@ export const SocialSignInButtons = () => {
         )
     }
 
+    GoogleSignin.configure({
+        scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+        webClientId: "911547189138-a8hason64p4cqki0spv3pab30higdere.apps.googleusercontent.com"
+    });
+
     const onSignInFacebook = () => {
         console.warn("sign in fb");
     }
 
     async function onGoogleButtonPress() {
         // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn();
+        console.log("testt");
+        const userInfo  = await GoogleSignin.signIn();
 
+        console.log(userInfo);
+
+        const { idToken } = userInfo;
         // Create a Google credential with the token
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 

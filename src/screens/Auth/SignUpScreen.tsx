@@ -43,7 +43,7 @@ export const SignUpScreen = () => {
                     const user = userCredentials.user;
                     navigation.dispatch(
                         CommonActions.navigate({
-                            name: 'ConfirmEmail',
+                            name: 'Menu',
                             params: {
                                 headerLeft: null,
                                 gestureEnabled: false,
@@ -119,8 +119,6 @@ export const SignUpScreen = () => {
                 nos{' '}<Text style={styles.link} onPress={onTermsOfUsePressed}>contrats d'utilisation</Text> et notre{' '}
                 <Text style={styles.link} onPress={onPrivacyPressed}>politique de confidentialitée</Text>.
             </Text>
-
-            <SocialSignInButtons/>
 
             <CustomButton
                 text="Vous avez déjà un compte? Connectez-vous"
