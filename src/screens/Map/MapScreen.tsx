@@ -17,13 +17,7 @@ api.getSpot();
 setTimeout(function(){spots = api.Output;},1000)
 
 
-setInterval(function(){
-                spots=[];
-                api.getSpot();
-                setTimeout(function(){spots = api.Output;},1000)
-                console.log("refresh")
-            }
-            ,60000);
+
 
 const MapScreen = () => {
 
@@ -79,6 +73,67 @@ const MapScreen = () => {
             console.log(error.message);
         })
 
+
+
+    //particular return(every minutes)
+    setInterval(function(){
+        api.Output=[]
+        spots:[];
+        api.getSpot()
+        .then(async function() {
+            spots = api.Output;
+            return (
+                <View style={{ flex: 1 }}>
+                    <GooglePlaceInput />
+                    <MapView style={{ flex: 1 }}
+                        ref={map}
+                        provider={PROVIDER_GOOGLE}
+                        showsUserLocation>
+                        {spots.map(spot => (
+                            <CustomMarker
+                                position={{
+                                    latitude: spot.latitude,
+                                    longitude: spot.longitude
+                                }}
+                                sport={spot.sport}
+                                isSelected={spot.id === selectedPlaceId}
+                                onPress={() => {
+                                    setSelectedPlaceId(spot.id);
+                                }}
+                                key={spot.id}
+                            />
+                        ))}
+                    </MapView>
+
+                    <View style={{
+                        bottom: 40,
+                    }}>
+                        <FlatList
+                            ref={flatlist}
+                            data={spots}
+                            renderItem={({ item }: { item: Spot }) => <SpotCarrousel spot={item} />}
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            snapToInterval={width - 60}
+                            snapToAlignment={"center"}
+                            decelerationRate={"fast"}
+                            viewabilityConfig={viewConfig.current}
+                            onViewableItemsChanged={onViewChanged.current}
+                        />
+                    </View>
+
+                </View >
+
+            );
+        })
+        
+    },10000);
+
+
+
+
+
+    //Default return
     return (
         <View style={{ flex: 1 }}>
             <GooglePlaceInput />
