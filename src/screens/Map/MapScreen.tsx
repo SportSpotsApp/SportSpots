@@ -13,7 +13,7 @@ const api = new FirebaseRequest()
 let spots: Spot[];
 api.getSpot();
 
-setTimeout(function(){spots = api.Output;});
+setTimeout(function () { spots = api.Output; });
 
 const MapScreen = () => {
 

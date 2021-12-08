@@ -46,7 +46,7 @@ const Tabs = () => {
                 tabBarIcon: ({ focused }) => (
                     <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
-                            source={require('../../assets/images/carte.png')}
+                            source={require('../../assets/images/map-marked-alt-solid.png')}
                             resizeMode="contain"
                             style={{
                                 width: 20,
@@ -68,7 +68,7 @@ const Tabs = () => {
                 tabBarIcon: ({ focused }) => (
                     <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
-                            source={require('../../assets/images/loupe.png')}
+                            source={require('../../assets/images/search-location-solid.png')}
                             resizeMode="contain"
                             style={{
                                 width: 20,
@@ -89,7 +89,7 @@ const Tabs = () => {
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <Image
-                        source={require('../../assets/images/plus2.png')}
+                        source={require('../../assets/images/plus-solid.png')}
                         resizeMode="contain"
                         style={{
                             width: 30,
@@ -109,7 +109,7 @@ const Tabs = () => {
                 tabBarIcon: ({ focused }) => (
                     <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
-                            source={require('../../assets/images/discuter.png')}
+                            source={require('../../assets/images/comments-solid.png')}
                             resizeMode="contain"
                             style={{
                                 width: 20,
@@ -131,7 +131,7 @@ const Tabs = () => {
                 tabBarIcon: ({ focused }) => (
                     <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                         <Image
-                            source={require('../../assets/images/settings.png')}
+                            source={require('../../assets/images/cog-solid.png')}
                             resizeMode="contain"
                             style={{
                                 width: 20,
