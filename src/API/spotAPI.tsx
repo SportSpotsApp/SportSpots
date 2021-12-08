@@ -3,6 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import SpotClass from "../models/Spot" 
 import ClassCoordinate from '../models/Coordinate';
 import Coordinate from '../models/Coordinate';
+import Spot from '../models/Spot';
 
 export default class FirebaseRequest
 {
@@ -91,9 +92,6 @@ export default class FirebaseRequest
             firestore().collection("Spots").doc(doc.id).update({sport: modifiedSport});
         });
     }
-
-    
-
 
 
 
