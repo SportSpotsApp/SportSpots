@@ -49,27 +49,27 @@ const PostScreen = ({ navigation }: any) => {
                 var latitude: number = location.latitude;
                 var longitude: number = location.longitude;
                 db.getId();
-                var spotid:string;
-                
+                var spotid: string;
+
                 db.getId()
-                setTimeout(function(){
+                setTimeout(function () {
                     spotid = db.nbSpot;
-                    
-                        let addedSpot = new SpotClass(
-                            spotid,
-                            spotSport,
-                            spotDesc,
-                            spotLongDesc,
-                            PostalCode,
-                            spotCityName,
-                            String(auth().currentUser?.email),
-                            spotImage,
-                            latitude,
-                            longitude
-                        )
-                        db.addSpot(addedSpot);
-                },1000); 
-                 
+
+                    let addedSpot = new SpotClass(
+                        spotid,
+                        spotSport,
+                        spotDesc,
+                        spotLongDesc,
+                        PostalCode,
+                        spotCityName,
+                        String(auth().currentUser?.email),
+                        spotImage,
+                        latitude,
+                        longitude
+                    )
+                    db.addSpot(addedSpot);
+                }, 1000);
+
             })
             .catch(error => {
                 const { code, message } = error;
@@ -79,7 +79,7 @@ const PostScreen = ({ navigation }: any) => {
     }
 
     const ReturnValue = () => {
-        db.modifyPostalCode(0,69003)
+        db.modifyPostalCode(0, 69003)
         console.log("It's ok");
     };
 
@@ -128,10 +128,6 @@ const PostScreen = ({ navigation }: any) => {
             <CustomButton
                 text="Poster"
                 onPress={() => { handleSubmit() }}
-            />
-            <CustomButton
-                text="Get"
-                onPress={() => { ReturnValue() }}
             />
         </View>
     );
