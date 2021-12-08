@@ -1,6 +1,6 @@
 import React from "react";
-import {NavigationContainer} from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeScreen from "../screens/Home/HomeScreen";
 import SignInScreen from "../screens/Auth/SignInScreen";
@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
 
-    let nameOfScreen:string = "Home";
+    let nameOfScreen: string = "Home";
     auth().onAuthStateChanged((user) => {
         if (user) {
             // ici deja connecté
@@ -27,7 +27,7 @@ const Navigation = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={nameOfScreen} screenOptions={{headerShown: false}}>
+            <Stack.Navigator initialRouteName={nameOfScreen} screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="SignIn" component={SignInScreen} />
                 <Stack.Screen name="SignUp" component={SignUpScreen} />

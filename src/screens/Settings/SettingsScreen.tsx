@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Pressable, Alert, Linking } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, Linking } from 'react-native';
 import auth from "@react-native-firebase/auth";
 import { CommonActions, useNavigation } from '@react-navigation/native'
 
@@ -23,20 +23,77 @@ const SettingsScreen = () => {
             .catch((error: any) => Alert.alert(error.message))
     }
 
+    const modifyEmail = () => {
+        navigation.dispatch(
+            CommonActions.navigate({
+                name: 'ModifyEmail',
+                params: {
+                    headerLeft: null,
+                    gestureEnabled: false,
+                },
+            })
+        );
+    }
+
+    const modifyPassword = () => {
+        navigation.dispatch(
+            CommonActions.navigate({
+                name: 'ModifyPassword',
+                params: {
+                    headerLeft: null,
+                    gestureEnabled: false,
+                },
+            })
+        );
+    }
+
     return (
         <View>
             <Text style={styles.header}>Compte</Text>
 
-            <View style={styles.row}>
+            <TouchableOpacity style={styles.row} onPress={modifyEmail}>
                 <View>
                     <Text style={{ fontWeight: "bold", fontSize: 20 }}>
                         Email
                     </Text>
                     <Text style={{ color: '#8d8d8d', fontSize: 16 }}>
-                        {auth().currentUser?.email}
+                        Changer votre adresse email
                     </Text>
                 </View>
-            </View>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Image
+                        source={require('../../../assets/images/chevron-right-solid.png')}
+                        resizeMode="contain"
+                        style={{
+                            width: 15,
+                            height: 15,
+                            tintColor: '#748c94',
+                        }}
+                    />
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.row} onPress={modifyPassword}>
+                <View>
+                    <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                        Mot de passe
+                    </Text>
+                    <Text style={{ color: '#8d8d8d', fontSize: 16 }}>
+                        Changer votre mot de passe
+                    </Text>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Image
+                        source={require('../../../assets/images/chevron-right-solid.png')}
+                        resizeMode="contain"
+                        style={{
+                            width: 15,
+                            height: 15,
+                            tintColor: '#748c94',
+                        }}
+                    />
+                </View>
+            </TouchableOpacity>
 
             <TouchableOpacity style={styles.row} onPress={handleSignOut}>
                 <View>
@@ -48,7 +105,15 @@ const SettingsScreen = () => {
                     </Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={{ fontSize: 20 }}>Et juste ici, un petit geranium</Text>
+                    <Image
+                        source={require('../../../assets/images/chevron-right-solid.png')}
+                        resizeMode="contain"
+                        style={{
+                            width: 15,
+                            height: 15,
+                            tintColor: '#748c94',
+                        }}
+                    />
                 </View>
             </TouchableOpacity>
 
@@ -65,48 +130,49 @@ const SettingsScreen = () => {
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.row} onPress={() => { Linking.openURL("https://gitlab.com/creatibofficiel/sportspots"); }}>
+            <TouchableOpacity style={styles.row} onPress={() => { Linking.openURL("https://sportspots.fr"); }}>
                 <View>
                     <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-                        Code source
+                        Site web
                     </Text>
                     <Text style={{ color: '#8d8d8d', fontSize: 16 }}>
-                        Gitlab.com
+                        sportspots.fr
                     </Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={{ fontSize: 20 }}>Et juste ici, un petit geranium</Text>
+                    <Image
+                        source={require('../../../assets/images/external-link-alt-solid.png')}
+                        resizeMode="contain"
+                        style={{
+                            width: 15,
+                            height: 15,
+                            tintColor: '#748c94',
+                        }}
+                    />
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.row} onPress={() => { Linking.openURL("https://gitlab.com/creatibofficiel/sportspots"); }}>
+            <TouchableOpacity style={styles.row} onPress={() => { Linking.openURL("mailto:sportspots.corp@gmail.com"); }}>
                 <View>
                     <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-                        Aide en ligne
+                        Contactez nous
                     </Text>
                     <Text style={{ color: '#8d8d8d', fontSize: 16 }}>
-
+                        sportspots.corp@gmail.com
                     </Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={{ fontSize: 20 }}>Et juste ici, un petit geranium</Text>
+                    <Image
+                        source={require('../../../assets/images/external-link-alt-solid.png')}
+                        resizeMode="contain"
+                        style={{
+                            width: 15,
+                            height: 15,
+                            tintColor: '#748c94',
+                        }}
+                    />
                 </View>
             </TouchableOpacity>
-
-            <TouchableOpacity style={styles.row} onPress={() => { Linking.openURL("https://gitlab.com/creatibofficiel/sportspots"); }}>
-                <View>
-                    <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-                        Equipe de developpement
-                    </Text>
-                    <Text style={{ color: '#8d8d8d', fontSize: 16 }}>
-                        SportSpots corp
-                    </Text>
-                </View>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={{ fontSize: 20 }}>Et juste ici, un petit geranium</Text>
-                </View>
-            </TouchableOpacity>
-
         </View>
     );
 };
