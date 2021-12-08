@@ -12,12 +12,15 @@ import React from 'react';
 import Navigation from "./src/navigation/Navigation";
 import {SafeAreaView, StyleSheet} from "react-native";
 
+
+
 const App = () => {
   return (
       <SafeAreaView style={styles.root}>
           <Navigation />
       </SafeAreaView>
     );
+
 }
 
 const styles = StyleSheet.create({

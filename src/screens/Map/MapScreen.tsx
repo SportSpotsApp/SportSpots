@@ -8,12 +8,22 @@ import CustomMarker from "../../components/Map/CustomMarker";
 import SpotCarrousel from "../../components/Spot/SpotCarrousel";
 import Spot from '../../models/Spot';
 import FirebaseRequest from '../../API/spotAPI';
+import { StyleType, CustomButton } from "../../components/CustomButton/CustomButton";
+
 
 const api = new FirebaseRequest()
 let spots: Spot[];
 api.getSpot();
+setTimeout(function(){spots = api.Output;},1000)
 
-setTimeout(function () { spots = api.Output; });
+
+setInterval(function(){
+                spots=[];
+                api.getSpot();
+                setTimeout(function(){spots = api.Output;},1000)
+                console.log("refresh")
+            }
+            ,60000);
 
 const MapScreen = () => {
 
@@ -33,6 +43,7 @@ const MapScreen = () => {
     const width = useWindowDimensions().width;
 
     useEffect(() => {
+
         if (!selectedPlaceId || !flatlist) return;
 
         const index = spots.findIndex(spot => spot.id === selectedPlaceId);
