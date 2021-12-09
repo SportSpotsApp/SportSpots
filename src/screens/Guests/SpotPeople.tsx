@@ -1,29 +1,29 @@
-import activities from "../../../assets/data/activities";
+import React, {useEffect, useMemo, useState} from 'react';
 import Spot from "../../models/Spot";
 import SpotComponent from "../../components/Spot/SpotComponent";
-import {useState} from "react";
-import {FlatList, StyleSheet, TextInput, View} from "react-native";
-import SportAPI from "../../API/spotAPI"
+import {FlatList, StyleSheet, Text, TextInput, View} from "react-native";
+import FirebaseRequest from "../../API/spotAPI";
+import auth from "@react-native-firebase/auth";
+import SpotClass from "../../models/Spot";
+
+const api = new FirebaseRequest()
 
 const SpotPeople = () => {
-
+    const [spots, setSpots] = useState<Spot[]>([]);
     const [inputText, setInputText] = useState('');
+
+    useEffect(() => {
+        api.getSpotbyUser(auth().currentUser?.email as string).then((spots: Spot[]) => setSpots(spots));
+    }, []);
 
     return (
         <View style={styles.container}>
-
-            {/*Input Component*/}
-            <TextInput
-                style={styles.textInput}
-                placeholder={"Rechercher"}
-                value={inputText}
-                onChangeText={setInputText}
-            />
+            <Text>Vous avez {spots.length} spots</Text>
             <FlatList
-                data={activities}
+                data={spots}
                 renderItem={({ item }: {item: Spot}) => (
                     <View style={styles.row}>
-                        <SpotComponent spot={item}/>
+                        <SpotComponent spot={item} canEdit={true} key={item.id}/>
                     </View>
                 )}
             />

@@ -4,24 +4,39 @@ import {CommonActions, useNavigation} from "@react-navigation/native";
 import Spot from "../../models/Spot";
 
 interface SpotType {
-    spot: Spot;
+    spot: Spot,
+    canEdit : boolean;
 }
 
-const ActivityComponent = ({ spot }: SpotType) => {
+const SpotComponent = ({ spot, canEdit = false }: SpotType) => {
 
     const navigation = useNavigation();
 
     const goToDetailedActivityPage = () => {
-        navigation.dispatch(
-            CommonActions.navigate({
-                name: 'DetailedSpot',
-                params: {
-                    headerLeft: null,
-                    gestureEnabled: false,
-                    spot: spot,
-                },
-            })
-        );
+        console.log("bjr je suis la", spot);
+        if(canEdit){
+            navigation.dispatch(
+                CommonActions.navigate({
+                    name: 'DetailedSpotEditable',
+                    params: {
+                        headerLeft: null,
+                        gestureEnabled: false,
+                        spot: spot,
+                    },
+                })
+            );
+        }else{
+            navigation.dispatch(
+                CommonActions.navigate({
+                    name: 'DetailedSpot',
+                    params: {
+                        headerLeft: null,
+                        gestureEnabled: false,
+                        spot: spot,
+                    },
+                })
+            );
+        }
     }
 
     return (
@@ -76,4 +91,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ActivityComponent;
+export default SpotComponent;

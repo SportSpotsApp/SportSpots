@@ -9,22 +9,16 @@ import ConfirmEmailScreen from "../screens/Auth/ConfirmEmailScreen";
 import ForgotPasswordScreen from "../screens/Auth/ForgotPasswordScreen";
 import NewPasswordScreen from "../screens/Auth/NewPasswordScreen";
 import DestinationSearch from "../screens/Search/ActivitySearchScreen";
-import auth from "@react-native-firebase/auth";
 
 import Tabs from "./Tabs";
 
 const Stack = createNativeStackNavigator();
 
-const Navigation = () => {
+type NavigationParams = {
+    nameOfScreen: string;
+};
 
-    let nameOfScreen: string = "Home";
-    auth().onAuthStateChanged((user) => {
-        if (user) {
-            // ici deja connecté
-            nameOfScreen = "Menu";
-        }
-    })
-
+const Navigation = ({ nameOfScreen }: NavigationParams) => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName={nameOfScreen} screenOptions={{ headerShown: false }}>

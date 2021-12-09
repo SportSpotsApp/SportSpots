@@ -23,8 +23,7 @@ const PostScreen = ({ navigation }: any) => {
     const [spotSport, setSpotSport] = useState("");
     const [spotImage, setSpotImage] = useState("");
     const sportList =
-        [["Empty", "empty"],
-        ["Football", "football"],
+        [["Football", "football"],
         ["Basketball", "basketball"],
         ["Volleyball", "volleyball"],
         ["Tennis", "tennis"],

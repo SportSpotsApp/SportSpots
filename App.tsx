@@ -8,18 +8,37 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Navigation from "./src/navigation/Navigation";
 import {SafeAreaView, StyleSheet} from "react-native";
+import {firebase} from "@react-native-firebase/auth";
+import Tabs from "./src/navigation/Tabs";
 
 
 
 const App = () => {
-  return (
-      <SafeAreaView style={styles.root}>
-          <Navigation />
-      </SafeAreaView>
-    );
+    const [loading, setLoading] = useState(true);
+    const [authenticated, setAuthenticated] = useState(true);
+
+    useEffect(() => {
+        return firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                setAuthenticated(true);
+            } else {
+                setAuthenticated(false);
+            }
+
+            setLoading(false);
+        });
+    }, []);
+
+    if (loading) return null; // Render loading/splash screen etc
+
+    if (!authenticated) {
+        return <Navigation nameOfScreen={"Home"}/>;
+    }
+
+    return <Navigation nameOfScreen={"Menu"}/>;
 
 }
 

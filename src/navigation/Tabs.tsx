@@ -10,6 +10,8 @@ import ActivitySearchResultTabNavigator from "./ActivitySearchResultTabNavigator
 import PeopleNumber from "../screens/Guests/PeopleNumber";
 import HomeNavigator from "./HomeNavigator";
 import ActivityNavigator from "./ActivityNavigator";
+import SpotPeople from "../screens/Guests/SpotPeople";
+import MySpotsNavigator from "./MySpotsNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -103,7 +105,7 @@ const Tabs = () => {
                 )
             }} />
 
-            <Tab.Screen name="Chat" component={PeopleNumber} options={{
+            <Tab.Screen name="MySpots" component={MySpotsNavigator} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
@@ -119,7 +121,7 @@ const Tabs = () => {
                         />
                         <Text
                             style={{ color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10, }}>
-                            Chat
+                            Mes Spots
                         </Text>
                     </View>
                 ),

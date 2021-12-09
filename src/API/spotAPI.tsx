@@ -1,9 +1,8 @@
 import firebase from '@react-native-firebase/app';
 import firestore from '@react-native-firebase/firestore';
-import SpotClass from "../models/Spot" 
+import SpotClass from "../models/Spot"
 import ClassCoordinate from '../models/Coordinate';
 import Coordinate from '../models/Coordinate';
-import Spot from '../models/Spot';
 
 export default class FirebaseRequest
 {
@@ -150,7 +149,7 @@ export default class FirebaseRequest
         });
 
     }
-    
+
 
     public async getSpotbySport(Sport:string){
 
@@ -198,14 +197,31 @@ export default class FirebaseRequest
         });
     }
 
-    public async getSpotbyUser(User:string){
+    public getSpotbyUser(User: string): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            firestore()
+                .collection("Spots")
+                .where('author','==', User)
+                .get().then((data: any) => {
+                    let spots: SpotClass[] = [];
+                    data.forEach((el: any) => spots.push(
+                        new SpotClass(el.data().spotId,
+                            el.data().sport,
+                            el.data().spotDesc,
+                            el.data().spotLongDesc,
+                            el.data().spotPostalCode,
+                            el.data().spotCityName,
+                            el.data().author,
+                            el.data().image,
+                            el.data().latitude,
+                            el.data().longitude
+                        )
+                    ));
+                    resolve(spots);
+            });
+        });
 
-        var snapshot = await firestore()
-        .collection("Spots")
-        .where('author','==', User)
-        .get()
-
-        snapshot.forEach((doc) => {
+     /**   snapshot.forEach((doc) => {
             let Spot = new SpotClass(doc.data().spotId,
                 doc.data().sport,
                 doc.data().spotDesc,
@@ -217,11 +233,12 @@ export default class FirebaseRequest
                 doc.data().latitude,
                 doc.data().longitude
             )
-            this.Output.push(Spot);
         });
+
+        return output;**/
     }
-    
-    public async getSpotbyCity(City:string){
+
+    public async getSpotbyCity(City:string) {
 
         var snapshot = await firestore()
         .collection("Spots")
@@ -243,7 +260,7 @@ export default class FirebaseRequest
             this.Output.push(Spot);
         });
 
-        
+
     }
 
     public async getId(){

@@ -102,8 +102,6 @@ export const SignInScreen = () => {
                     type={StyleType.TERTIARY}
                 />
 
-                <SocialSignInButtons />
-
                 <CustomButton
                     text="Vous n'avez pas de compte? Créez-en un"
                     onPress={onSignUpPressed}

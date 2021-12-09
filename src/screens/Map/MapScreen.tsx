@@ -10,14 +10,10 @@ import Spot from '../../models/Spot';
 import FirebaseRequest from '../../API/spotAPI';
 import { StyleType, CustomButton } from "../../components/CustomButton/CustomButton";
 
-
 const api = new FirebaseRequest()
-let spots: Spot[];
+let spots: Spot[] = [];
 api.getSpot();
-setTimeout(function(){spots = api.Output;},1000)
-
-
-
+//setTimeout(function(){spots = api.Output;},1000)
 
 const MapScreen = () => {
 
@@ -73,8 +69,6 @@ const MapScreen = () => {
             console.log(error.message);
         })
 
-
-
     //particular return(every minutes)
     setInterval(function(){
         api.Output=[]
@@ -84,7 +78,6 @@ const MapScreen = () => {
             spots = api.Output;
             return (
                 <View style={{ flex: 1 }}>
-                    <GooglePlaceInput />
                     <MapView style={{ flex: 1 }}
                         ref={map}
                         provider={PROVIDER_GOOGLE}
@@ -126,17 +119,12 @@ const MapScreen = () => {
 
             );
         })
-        
+
     },10000);
-
-
-
-
 
     //Default return
     return (
         <View style={{ flex: 1 }}>
-            <GooglePlaceInput />
             <MapView style={{ flex: 1 }}
                 ref={map}
                 provider={PROVIDER_GOOGLE}
