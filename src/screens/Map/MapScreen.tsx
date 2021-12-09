@@ -11,71 +11,72 @@ import FirebaseRequest from '../../API/spotAPI';
 import { StyleType, CustomButton } from "../../components/CustomButton/CustomButton";
 
 const api = new FirebaseRequest()
-let spots: Spot[] = [];
-api.getSpot();
-//setTimeout(function(){spots = api.Output;},1000)
+
 
 const MapScreen = () => {
-
-    const [selectedPlaceId, setSelectedPlaceId] = useState('');
-
-    const flatlist: React.RefObject<FlatList> = useRef(null);
-    const map: React.RefObject<MapView> = createRef();
-
-    const viewConfig = useRef({ itemVisiblePercentThreshold: 30 })
-    const onViewChanged = useRef(({ viewableItems }: any) => {
-        if (viewableItems.length > 0) {
-            const selectedPlace = viewableItems[0].item;
-            setSelectedPlaceId(selectedPlace.id)
-        }
-    })
-
-    const width = useWindowDimensions().width;
+    var [spots, setSpots] = useState<Spot[]>([]);
 
     useEffect(() => {
+        api.getSpots().then((spots: Spot[]) => setSpots(spots));
+        setInterval(function(){ spots=[]; api.getSpots().then((spots: Spot[]) => setSpots(spots));},3000)
+    }, []);
 
-        if (!selectedPlaceId || !flatlist) return;
+        //les index du carrousel s'actualise pas enfaite
 
-        const index = spots.findIndex(spot => spot.id === selectedPlaceId);
+        const [selectedPlaceId, setSelectedPlaceId] = useState('');
 
-        flatlist.current?.scrollToIndex({ animated: true, index: index });
+        const flatlist: React.RefObject<FlatList> = useRef(null);
+        const map: React.RefObject<MapView> = createRef();
 
-        const selectedSpot = spots[index];
-        const region = {
-            latitude: selectedSpot.latitude,
-            longitude: selectedSpot.longitude,
-            latitudeDelta: 0.8,
-            longitudeDelta: 0.8,
-        }
+        const viewConfig = useRef({ itemVisiblePercentThreshold: 30 })
+        const onViewChanged = useRef(({ viewableItems }: any) => {
+            if (viewableItems.length > 0) {
+                const selectedPlace = viewableItems[0].item;
+                setSelectedPlaceId(selectedPlace.id)
+            }
+        })
 
-        map.current?.animateToRegion(region, 1000);
-    }, [selectedPlaceId])
+        const width = useWindowDimensions().width;
 
-    GetLocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 20000,
-    })
-        .then(location => {
-            const region = ({
-                latitude: location.latitude,
-                longitude: location.longitude,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,
+        useEffect(() => {
+
+            if (!selectedPlaceId || !flatlist) return;
+
+            const index = spots.findIndex(spot => spot.id === selectedPlaceId);
+
+            flatlist.current?.scrollToIndex({ animated: true, index: index });
+
+            const selectedSpot = spots[index];
+            const region = {
+                latitude: selectedSpot.latitude,
+                longitude: selectedSpot.longitude,
+                latitudeDelta: 0.8,
+                longitudeDelta: 0.8,
+            }
+
+            map.current?.animateToRegion(region, 1000);
+        }, [selectedPlaceId])
+
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 20000,
+        })
+            .then(location => {
+                const region = ({
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05,
+                })
+
+                map.current?.animateToRegion(region);
+            })
+            .catch(error => {
+                console.log(error.message);
             })
 
-            map.current?.animateToRegion(region);
-        })
-        .catch(error => {
-            console.log(error.message);
-        })
-
-    //particular return(every minutes)
-    setInterval(function(){
-        api.Output=[]
-        spots:[];
-        api.getSpot()
-        .then(async function() {
-            spots = api.Output;
+        //particular return(every minutes)
+        setInterval(function(){
             return (
                 <View style={{ flex: 1 }}>
                     <MapView style={{ flex: 1 }}
@@ -97,7 +98,6 @@ const MapScreen = () => {
                             />
                         ))}
                     </MapView>
-
                     <View style={{
                         bottom: 40,
                     }}>
@@ -114,15 +114,12 @@ const MapScreen = () => {
                             onViewableItemsChanged={onViewChanged.current}
                         />
                     </View>
-
                 </View >
-
             );
-        })
-
-    },10000);
+        },3000);
 
     //Default return
+    
     return (
         <View style={{ flex: 1 }}>
             <MapView style={{ flex: 1 }}
@@ -144,7 +141,6 @@ const MapScreen = () => {
                     />
                 ))}
             </MapView>
-
             <View style={{
                 bottom: 40,
             }}>
@@ -161,9 +157,9 @@ const MapScreen = () => {
                     onViewableItemsChanged={onViewChanged.current}
                 />
             </View>
-
         </View >
     );
 }
+
 
 export default MapScreen;

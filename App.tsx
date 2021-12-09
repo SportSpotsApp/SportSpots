@@ -18,7 +18,7 @@ import Tabs from "./src/navigation/Tabs";
 
 const App = () => {
     const [loading, setLoading] = useState(true);
-    const [authenticated, setAuthenticated] = useState(true);
+    const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
         return firebase.auth().onAuthStateChanged((user) => {

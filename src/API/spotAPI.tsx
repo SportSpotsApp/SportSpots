@@ -125,12 +125,33 @@ export default class FirebaseRequest
 
 
 
-    public async getSpot()
-    {
+    public getSpots(): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            firestore()
+                .collection("Spots")
+                .get().then((data: any) => {
+                    let spots: SpotClass[] = [];
+                    data.forEach((el: any) => spots.push(
+                        new SpotClass(el.data().spotId,
+                            el.data().sport,
+                            el.data().spotDesc,
+                            el.data().spotLongDesc,
+                            el.data().spotPostalCode,
+                            el.data().spotCityName,
+                            el.data().author,
+                            el.data().image,
+                            el.data().latitude,
+                            el.data().longitude
+                        )
+                    ));
+                    resolve(spots);
+            });
+        });
+    }
+    public async getSpot(){
 
         var snapshot = await firestore()
         .collection("Spots")
-        .orderBy("createAt")
         .get()
 
         snapshot.forEach((doc) => {
@@ -147,7 +168,6 @@ export default class FirebaseRequest
             )
             this.Output.push(Spot);
         });
-
     }
 
 
