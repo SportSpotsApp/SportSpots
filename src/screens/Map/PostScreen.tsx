@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
@@ -8,14 +8,14 @@ import SpotClass from '../../models/Spot';
 import GetLocation, { Location } from 'react-native-get-location'
 import FirebaseRequest from '../../API/spotAPI';
 import auth from "@react-native-firebase/auth";
-import { Sport } from '../../models/SportParser/Sport';
-import Coordinate from '../../models/Coordinate';
-
+import uuid from 'react-native-uuid'
 
 const PostScreen = ({ navigation }: any) => {
 
     let db = new FirebaseRequest();
 
+    const [location, setLocation] = useState<Location>();
+    const [error, setError] = useState<string>();
     const [spotDesc, setSpotDesc] = useState('');
     const [spotLongDesc, setSpotLongDesc] = useState('');
     const [spotPostalCode, setSpotPostalCode] = useState('');
@@ -36,45 +36,41 @@ const PostScreen = ({ navigation }: any) => {
         ["Swimming", "swimming"],
         ["Other", "other"]];
 
-    var PostalCode: number = +spotPostalCode;
-
-    const handleSubmit = () => {
+    useEffect(() => {
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 20000,
+        }).then(location => setLocation(location))
+        .catch(error => {
+            const { code, message } = error;
+            console.warn(code, message);
         })
-            .then(location => {
+    }, [])
 
-                var latitude: number = location.latitude;
-                var longitude: number = location.longitude;
-                db.getId();
-                var spotid: string;
+    let PostalCode: number = +spotPostalCode;
 
-                db.getId()
-                setTimeout(function () {
-                    spotid = db.nbSpot;
+    const handleSubmit = () => {
+        if(!location) {
+            setError("Votre localisation n'a pas pu être récupérée");
+            return;
+        }
 
-                    let addedSpot = new SpotClass(
-                        spotid,
-                        spotSport,
-                        spotDesc,
-                        spotLongDesc,
-                        PostalCode,
-                        spotCityName,
-                        String(auth().currentUser?.email),
-                        spotImage,
-                        latitude,
-                        longitude
-                    )
-                    db.addSpot(addedSpot);
-                }, 1000);
-
-            })
-            .catch(error => {
-                const { code, message } = error;
-                console.warn(code, message);
-            })
-        navigation.navigate('Map');
+        db.addSpot(new SpotClass(
+            uuid.v4() as string,
+            spotSport,
+            spotDesc,
+            spotLongDesc,
+            PostalCode,
+            spotCityName,
+            String(auth().currentUser?.email),
+            spotImage,
+            location.latitude,
+            location.longitude
+        )).then(() => {
+            navigation.navigate('Map');
+        }).catch(error => {
+            setError(error.message);
+        })
     }
 
     const ReturnValue = () => {
@@ -128,6 +124,8 @@ const PostScreen = ({ navigation }: any) => {
                 text="Poster"
                 onPress={() => { handleSubmit() }}
             />
+
+            <Text>{error}</Text>
         </View>
     );
 };

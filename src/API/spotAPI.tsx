@@ -10,26 +10,23 @@ export default class FirebaseRequest
     public Output:any= [];
     public nbSpot:string = '0';
 
-
     //SETTERS
-    public addSpot(Spot:SpotClass)
-    {
-        firestore()
-        .collection('Spots')
-        .add({
-            spotId: Spot.id,
-            spotDesc: Spot.spotDesc,
-            sport: Spot.sport,
-            spotLongDesc: Spot.spotLongDesc,
-            spotPostalCode: Spot.spotPostalCode,
-            spotCityName: Spot.spotCityName,
-            author: Spot.author,
-            createAt: firebase.firestore.FieldValue.serverTimestamp(),
-            image: Spot.image,
-            latitude: Spot.latitude,
-            longitude: Spot.longitude
-        })
-        .catch((error) => console.log(error));
+    public addSpot(Spot:SpotClass): Promise<any> {
+        return firestore()
+            .collection('Spots')
+            .add({
+                spotId: Spot.id,
+                spotDesc: Spot.spotDesc,
+                sport: Spot.sport,
+                spotLongDesc: Spot.spotLongDesc,
+                spotPostalCode: Spot.spotPostalCode,
+                spotCityName: Spot.spotCityName,
+                author: Spot.author,
+                createAt: firebase.firestore.FieldValue.serverTimestamp(),
+                image: Spot.image,
+                latitude: Spot.latitude,
+                longitude: Spot.longitude
+            });
     }
 
     public async modifyDesc(Id:Number, modifiedDesc:String){
@@ -92,8 +89,6 @@ export default class FirebaseRequest
         });
     }
 
-
-
     //GETTERS
     public async getSpotInRadius(position:Coordinate)
     {
@@ -123,8 +118,6 @@ export default class FirebaseRequest
 
     }
 
-
-
     public getSpots(): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             firestore()
@@ -148,6 +141,7 @@ export default class FirebaseRequest
             });
         });
     }
+
     public async getSpot(){
 
         var snapshot = await firestore()
@@ -169,7 +163,6 @@ export default class FirebaseRequest
             this.Output.push(Spot);
         });
     }
-
 
     public async getSpotbySport(Sport:string){
 
@@ -240,22 +233,6 @@ export default class FirebaseRequest
                     resolve(spots);
             });
         });
-
-     /**   snapshot.forEach((doc) => {
-            let Spot = new SpotClass(doc.data().spotId,
-                doc.data().sport,
-                doc.data().spotDesc,
-                doc.data().spotLongDesc,
-                doc.data().spotPostalCode,
-                doc.data().spotCityName,
-                doc.data().author,
-                doc.data().image,
-                doc.data().latitude,
-                doc.data().longitude
-            )
-        });
-
-        return output;**/
     }
 
     public async getSpotbyCity(City:string) {
@@ -279,14 +256,5 @@ export default class FirebaseRequest
             )
             this.Output.push(Spot);
         });
-
-
-    }
-
-    public async getId(){
-        await firestore()
-        .collection("Spots")
-        .get()
-        .then((size) => {this.nbSpot = size.size.toString()});
     }
 }
