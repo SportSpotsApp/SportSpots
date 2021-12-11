@@ -35,7 +35,8 @@ const MapScreen = () => {
         })
     }, [selectedPlaceId])
 
-    useCallback(() => {
+    useEffect(() => {
+        console.log("Use rekjfijkd");
         onRegionChange()
     }, [spots]);
 
@@ -148,7 +149,6 @@ const MapScreen = () => {
                     snapToAlignment={"center"}
                     decelerationRate={"fast"}
                     viewabilityConfig={viewConfig.current}
-                    onViewableItemsChanged={onViewChanged.current}
                 />
             </View>
         </View >
