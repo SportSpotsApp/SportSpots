@@ -16,23 +16,13 @@ export enum StyleType {
 }
 
 export const Custompicker = ({ value, setValue, mode, list }: ClassTypeProps) => {
-    var itemListArr: any[] = [];
-
-    for (let i = 0; i < list.length; i++) {
-        itemListArr.push(
-            <Picker.Item label={list[i][0]} value={list[i][1]} />
-        );
-    }
-
     return (
         <View style={styles.container}>
             <Picker
                 selectedValue={value}
-                onValueChange={(itemValue, itemIndex) =>
-                    setValue(itemValue)
-                }
+                onValueChange={(itemValue, itemIndex) => setValue(itemValue)}
                 mode={mode}>
-                {itemListArr}
+                {list.map((item => <Picker.Item label={item[0]} value={item[1]} key={item[0]}/>))}
             </Picker>
         </View >
     )

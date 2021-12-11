@@ -7,10 +7,9 @@ interface CustomMarkerType {
     sport: string,
     isSelected: boolean,
     onPress: (event: MapEvent<{ action: 'marker-press'; id: string }>) => void,
-    key: string;
 }
 
-const CustomMarker = ({ position, sport, isSelected, onPress, key }: CustomMarkerType ) => {
+const CustomMarker = ({ position, sport, isSelected, onPress }: CustomMarkerType ) => {
 
     return (
         <Marker coordinate={position} onPress={onPress}>

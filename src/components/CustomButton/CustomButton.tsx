@@ -36,7 +36,6 @@ export const CustomButton = ({onPress, text, type = StyleType.PRIMARY, bgColor, 
     )
 }
 
-const scheme = useColorScheme();
 const styles: {[key: string]: any;} = StyleSheet.create({
     container: {
         width: '100%',

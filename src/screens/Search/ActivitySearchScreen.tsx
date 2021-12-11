@@ -9,6 +9,8 @@ const ActivitySearchScreen = () => {
 
     const [inputText, setInputText] = useState('');
 
+    console.log("ActivitySearchScreen");
+
     return (
         <View style={styles.container}>
 
