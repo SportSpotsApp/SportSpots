@@ -29,6 +29,24 @@ export default class FirebaseRequest
             });
     }
 
+
+    public async modifySpot(Id:String, modifiedImage:String,modifiedCityName:String, modifiedDesc:String, modifiedLongDesc:String,modifiedPostalCode:String,modifiedSport:String){
+
+        var snapshot = await firestore()
+        .collection("Spots")
+        .where('spotId','==', Id)
+        .get()
+
+        snapshot.forEach((doc) => {
+            firestore().collection("Spots").doc(doc.id).update({sport: modifiedSport});
+            firestore().collection("Spots").doc(doc.id).update({image: modifiedImage});
+            firestore().collection("Spots").doc(doc.id).update({spotCityName: modifiedCityName});
+            firestore().collection("Spots").doc(doc.id).update({spotDesc: modifiedDesc});
+            firestore().collection("Spots").doc(doc.id).update({spotLongDesc: modifiedLongDesc});
+            firestore().collection("Spots").doc(doc.id).update({spotPostalCode: modifiedPostalCode});
+        });
+    }
+
     public async modifyDesc(Id:Number, modifiedDesc:String){
 
         var snapshot = await firestore()
