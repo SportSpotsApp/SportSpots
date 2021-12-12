@@ -11,9 +11,12 @@ const ChangeEmail = () => {
   const [email, setEmail] = useState('');
 
   const handleEmailChange = () => {
+    if (!email) {
+      Alert.alert("Veuillez renseigner tous les champs");
+    }
     auth().currentUser?.updateEmail(email)
       .then(() => {
-        Alert.alert("Email changed successfully")
+        Alert.alert("Votre email a bien été modifié");
       }).catch(error => {
         Alert.alert(error.message)
       })
@@ -32,10 +35,10 @@ const ChangeEmail = () => {
 
   return (
     <View>
-      <Text style={styles.header}>Change Email</Text>
+      <Text style={styles.header}>Email</Text>
 
-      <View style={styles.row}>
-        <Text style={{ color: '#8d8d8d', fontSize: 16, paddingBottom: 20 }}>
+      <View style={styles.container}>
+        <Text style={styles.subheader}>
           Votre adresse actuelle est : {auth().currentUser?.email}
         </Text>
 
@@ -63,7 +66,12 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     marginHorizontal: 20,
   },
-  row: {
+  subheader: {
+    fontSize: 16,
+    color: '#8d8d8d',
+    paddingBottom: 20,
+  },
+  container: {
     flexDirection: "column",
     justifyContent: "space-between",
     paddingVertical: 20,
