@@ -1,10 +1,13 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, Linking, useColorScheme } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert, Linking, Animated } from 'react-native';
 import auth from "@react-native-firebase/auth";
+import Slider from "react-native-slider";
 import { CommonActions, useNavigation } from '@react-navigation/native'
 
 const SettingsScreen = () => {
     const navigation = useNavigation()
+
+    const [notificationRadius, setNotificationRadius] = useState(0);
 
     const handleSignOut = () => {
         auth().signOut()
@@ -60,8 +63,8 @@ const SettingsScreen = () => {
     }
 
     return (
-        <View>
-            <Text style={styles.header}>Compte</Text>
+        <ScrollView>
+            <Text style={styles.header}>Paramètres du Compte</Text>
 
             <TouchableOpacity style={styles.row} onPress={modifyEmail}>
                 <View>
@@ -99,6 +102,26 @@ const SettingsScreen = () => {
                 </View>
             </TouchableOpacity>
 
+            <TouchableOpacity style={styles.row} onPress={handleSignOut}>
+                <View>
+                    <Text style={styles.rowTitle}>
+                        Se deconnecter
+                    </Text>
+                    <Text style={styles.rowSubtitle}>
+
+                    </Text>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Image
+                        source={require('../../../assets/images/chevron-right-solid.png')}
+                        resizeMode="contain"
+                        style={styles.rowIcon}
+                    />
+                </View>
+            </TouchableOpacity>
+
+            <Text style={styles.header}>Paramètres de l'application</Text>
+
             <TouchableOpacity style={styles.row} onPress={modifySportList}>
                 <View>
                     <Text style={styles.rowTitle}>
@@ -117,23 +140,29 @@ const SettingsScreen = () => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.row} onPress={handleSignOut}>
-                <View>
+            <View style={styles.row}>
+                <View style={{ width: "100%" }}>
                     <Text style={styles.rowTitle}>
-                        Se deconnecter
+                        Rayon des notifications
                     </Text>
-                    <Text style={styles.rowSubtitle}>
-
-                    </Text>
+                    <View style={{ flex: 1, flexDirection: "row" }}>
+                        <Slider
+                            style={{ flex: 1 }}
+                            value={notificationRadius}
+                            onValueChange={setNotificationRadius}
+                            minimumValue={0}
+                            maximumValue={100}
+                            step={1}
+                            minimumTrackTintColor="#0f7eaa"
+                            maximumTrackTintColor="#d3d3d3"
+                            thumbTintColor="#0f7eaa"
+                        />
+                        <Text style={{ alignSelf: "center", marginLeft: 5, width: 55 }}>
+                            {notificationRadius} km
+                        </Text>
+                    </View>
                 </View>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Image
-                        source={require('../../../assets/images/chevron-right-solid.png')}
-                        resizeMode="contain"
-                        style={styles.rowIcon}
-                    />
-                </View>
-            </TouchableOpacity>
+            </View>
 
             <Text style={styles.header}>A propos</Text>
 
@@ -183,7 +212,7 @@ const SettingsScreen = () => {
                     />
                 </View>
             </TouchableOpacity>
-        </View >
+        </ScrollView >
     );
 };
 

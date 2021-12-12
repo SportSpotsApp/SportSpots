@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert, TouchableOpacity, Image, FlatList } from 'react-native';
 import { CustomPicker } from '../../components/CustomPicker/CustomPicker';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
-import { useNavigation } from '@react-navigation/native'
 import { SportList } from '../../models/Sport';
 
 const SportListSettingsScreen = () => {
-  const navigation = useNavigation();
-
   const [selectedSport, setSelectedSport] = useState('');
   const [savedSportList, setSavedSportList] = useState([]);
 
@@ -19,7 +16,7 @@ const SportListSettingsScreen = () => {
       setSavedSportList([...savedSportList, selectedSport]);
     }
     else {
-      Alert.alert('Erreur', 'Veuillez sélectionner un sport et assurez-vous que la liste n\'est pas pleine.');
+      Alert.alert('Erreur', 'Veuillez sélectionner un sport qui n\'est pas dans la liste et assurez-vous que la liste n\'est pas pleine.');
     }
   }
 
