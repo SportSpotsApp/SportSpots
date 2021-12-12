@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, StyleSheet, Pressable, GestureResponderEvent, ColorValue, useColorScheme} from 'react-native';
+import { View, Text, StyleSheet, Pressable, GestureResponderEvent, ColorValue, useColorScheme } from 'react-native';
 
 interface ClassTypeProps {
     onPress: (event: GestureResponderEvent) => void;
@@ -10,25 +10,25 @@ interface ClassTypeProps {
 }
 
 export enum StyleType {
-    PRIMARY="PRIMARY",
-    SECONDARY="SECONDARY",
-    TERTIARY="TERTIARY"
+    PRIMARY = "PRIMARY",
+    SECONDARY = "SECONDARY",
+    TERTIARY = "TERTIARY"
 }
 
-export const CustomButton = ({onPress, text, type = StyleType.PRIMARY, bgColor, fgColor}: ClassTypeProps) => {
+export const CustomButton = ({ onPress, text, type = StyleType.PRIMARY, bgColor, fgColor }: ClassTypeProps) => {
     return (
         <Pressable
             onPress={onPress}
             style={[
                 styles.container,
                 styles[`container_${type}`],
-                bgColor && {backgroundColor: bgColor}
+                bgColor && { backgroundColor: bgColor }
             ]}>
             <Text
                 style={[
                     styles.text,
                     styles[`text_${type}`],
-                    fgColor ? {color: fgColor} : {}
+                    fgColor ? { color: fgColor } : {}
                 ]}>
                 {text}
             </Text>
@@ -36,7 +36,7 @@ export const CustomButton = ({onPress, text, type = StyleType.PRIMARY, bgColor, 
     )
 }
 
-const styles: {[key: string]: any;} = StyleSheet.create({
+const styles: { [key: string]: any; } = StyleSheet.create({
     container: {
         width: '100%',
         padding: 15,
@@ -46,11 +46,11 @@ const styles: {[key: string]: any;} = StyleSheet.create({
     },
 
     container_PRIMARY: {
-        backgroundColor: '#3B71F3',
+        backgroundColor: '#0f7eaa',
     },
 
     container_SECONDARY: {
-        borderColor: '#3B71F3',
+        borderColor: '#0f7eaa',
         borderWidth: 2,
     },
 
@@ -64,7 +64,7 @@ const styles: {[key: string]: any;} = StyleSheet.create({
     },
 
     text_SECONDARY: {
-        color: '#3B71F3',
+        color: '#0f7eaa',
     },
 
     text_TERTIARY: {
