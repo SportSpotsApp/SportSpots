@@ -26,24 +26,14 @@ const MapScreen = () => {
         if (!selectedPlaceId || !flatList) return;
         const index = spotsDisplayed.findIndex(spot => spot.id === selectedPlaceId);
         flatList.current?.scrollToIndex({ animated: true, index: index });
-        const selectedSpot = spotsDisplayed[index];
-        map.current?.animateToRegion({
-            latitude: selectedSpot.latitude,
-            longitude: selectedSpot.longitude,
-            latitudeDelta: 0.8,
-            longitudeDelta: 0.8,
-        })
     }, [selectedPlaceId])
 
     useEffect(() => {
-        console.log("Use rekjfijkd");
         onRegionChange()
     }, [spots]);
 
     useEffect(() => {
         if(!isFocused) return;
-
-        console.log("useEffect isFocused MapScreen");
 
         if(!initialUserRegion) {
             GetLocation.getCurrentPosition({
@@ -149,6 +139,7 @@ const MapScreen = () => {
                     snapToAlignment={"center"}
                     decelerationRate={"fast"}
                     viewabilityConfig={viewConfig.current}
+                    onViewableItemsChanged={onViewChanged.current}
                 />
             </View>
         </View >
