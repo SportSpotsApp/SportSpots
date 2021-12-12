@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import auth from "@react-native-firebase/auth";
 import { CommonActions, useNavigation } from '@react-navigation/native'
 
-const ChangePassword = () => {
+const PasswordSettingsSreen = () => {
   const navigation = useNavigation()
 
   const [oldPassword, setOldPassword] = useState('')
@@ -22,14 +22,18 @@ const ChangePassword = () => {
         Alert.alert("Les mots de passe ne sont pas identiques");
         return;
       }
+      console.log(oldPassword, password, passwordVerif)
+      console.log(auth().currentUser?.email)
       // reauthenticating
       auth().currentUser?.reauthenticateWithCredential(auth.EmailAuthProvider.credential(auth().currentUser?.email || '', oldPassword))
         .then(() => {
+          console.log("reauthenticated")
           // updating password
           auth().currentUser?.updatePassword(password)
         })
         .catch(error => {
           Alert.alert(error.message)
+          console.log(error)
         })
     }
 
@@ -57,6 +61,7 @@ const ChangePassword = () => {
           placeholder="Mot de passe actuelle"
           value={oldPassword}
           setValue={setOldPassword}
+          secureTextEntry
         />
         <Text style={styles.subheader}>
           Veuillez renseigner votre nouveau mot de passe.
@@ -65,11 +70,13 @@ const ChangePassword = () => {
           placeholder="Nouveau mot de passe"
           value={password}
           setValue={setPassword}
+          secureTextEntry
         />
         <CustomInput
           placeholder="Confirmer le mot de passe"
           value={passwordVerif}
           setValue={setPasswordVerif}
+          secureTextEntry
         />
         <CustomButton
           text="Changer de mot de passe"
@@ -80,7 +87,7 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default PasswordSettingsSreen;
 
 const styles = StyleSheet.create({
   header: {

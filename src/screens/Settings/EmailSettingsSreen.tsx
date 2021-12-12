@@ -5,7 +5,7 @@ import { CustomButton } from '../../components/CustomButton/CustomButton';
 import auth from "@react-native-firebase/auth";
 import { CommonActions, useNavigation } from '@react-navigation/native'
 
-const ChangeEmail = () => {
+const EmailSettingsSreen = () => {
   const navigation = useNavigation()
 
   const [email, setEmail] = useState('');
@@ -57,7 +57,7 @@ const ChangeEmail = () => {
   );
 };
 
-export default ChangeEmail;
+export default EmailSettingsSreen;
 
 const styles = StyleSheet.create({
   header: {

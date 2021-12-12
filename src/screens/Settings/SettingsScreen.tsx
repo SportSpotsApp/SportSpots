@@ -47,6 +47,18 @@ const SettingsScreen = () => {
         );
     }
 
+    const modifySportList = () => {
+        navigation.dispatch(
+            CommonActions.navigate({
+                name: 'ModifySportList',
+                params: {
+                    headerLeft: null,
+                    gestureEnabled: false,
+                },
+            })
+        );
+    }
+
     return (
         <View>
             <Text style={styles.header}>Compte</Text>
@@ -76,6 +88,24 @@ const SettingsScreen = () => {
                     </Text>
                     <Text style={styles.rowSubtitle}>
                         Changer votre mot de passe
+                    </Text>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Image
+                        source={require('../../../assets/images/chevron-right-solid.png')}
+                        resizeMode="contain"
+                        style={styles.rowIcon}
+                    />
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.row} onPress={modifySportList}>
+                <View>
+                    <Text style={styles.rowTitle}>
+                        Sport favoris
+                    </Text>
+                    <Text style={styles.rowSubtitle}>
+                        Liste des sports qui vous intéressent
                     </Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>

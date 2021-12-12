@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
-import { Custompicker } from '../../components/CustomPicker/CustomPicker';
+import { CustomPicker } from '../../components/CustomPicker/CustomPicker';
 import SpotClass from '../../models/Spot';
 import GetLocation, { Location } from 'react-native-get-location'
 import FirebaseRequest from '../../API/spotAPI';
@@ -20,7 +20,7 @@ const PostScreen = ({ navigation }: any) => {
     const [spotPostalCode, setSpotPostalCode] = useState('');
     const [spotCityName, setSpotCityName] = useState('');
     const [spotImage, setSpotImage] = useState("");
-    const {colors} = useTheme();
+    const { colors } = useTheme();
 
     const handleSubmit = () => {
         if (!location) {
@@ -70,15 +70,15 @@ const PostScreen = ({ navigation }: any) => {
             console.log("oke ??", location);
         })
             .catch(error => {
-                const {code, message} = error;
+                const { code, message } = error;
                 console.warn(code, message);
             })
     }, []);
 
     return (<View style={styles.root}>
-        <Text style={{color: colors.text}}>Poster un spot</Text>
+        <Text style={{ color: colors.text }}>Poster un spot</Text>
 
-        <Custompicker
+        <CustomPicker
             value={spotSport}
             setValue={setSpotSport}
             mode="dropdown"
