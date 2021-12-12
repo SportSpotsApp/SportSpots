@@ -8,28 +8,24 @@ import { SportList } from '../../models/Sport';
 const SportListSettingsScreen = () => {
   const navigation = useNavigation();
 
-  const [sport, setSport] = useState('');
-
-  var savedSportList: string[] = [
-    'Football',
-    'Basketball',
-    'Volleyball',
-    'Tennis',
-    'Table Tennis',
-  ];
+  const [selectedSport, setSelectedSport] = useState('');
+  const [savedSportList, setSavedSportList] = useState([]);
 
   const addSportToSportList = () => {
     // Add sport to sport list if it is not already in the list and if the list size is less than 5
-    if (sport !== '' && savedSportList.indexOf(sport) === -1 && savedSportList.length < 5) {
-      savedSportList.push(sport);
-      setSport('');
+    console.log(savedSportList);
+    console.log(selectedSport);
+    if (savedSportList.length < 5 && !savedSportList.includes(selectedSport)) {
+      setSavedSportList([...savedSportList, selectedSport]);
+    }
+    else {
+      Alert.alert('Erreur', 'Veuillez sélectionner un sport et assurez-vous que la liste n\'est pas pleine.');
     }
   }
 
   const removeSportFromSportList = (item: string) => {
     // Remove item from sport list
-    savedSportList.splice(savedSportList.indexOf(item), 1);
-    this.setState({ savedSportList: savedSportList });
+    setSavedSportList(savedSportList => savedSportList.filter(sport => sport !== item));
   }
 
   return (
@@ -40,8 +36,8 @@ const SportListSettingsScreen = () => {
           Cherchez un sport qui vous intéresse et appuyez sur le bouton pour ajouter.
         </Text>
         <CustomPicker
-          value={sport}
-          setValue={setSport}
+          value={selectedSport}
+          setValue={setSelectedSport}
           mode="dropdown"
           list={SportList}
         />
