@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Alert, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Alert, TouchableOpacity, Image, FlatList } from 'react-native';
 import { CustomPicker } from '../../components/CustomPicker/CustomPicker';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native'
@@ -18,8 +18,18 @@ const SportListSettingsScreen = () => {
     'Table Tennis',
   ];
 
-  const handleSportListChange = () => {
+  const addSportToSportList = () => {
+    // Add sport to sport list if it is not already in the list and if the list size is less than 5
+    if (sport !== '' && savedSportList.indexOf(sport) === -1 && savedSportList.length < 5) {
+      savedSportList.push(sport);
+      setSport('');
+    }
+  }
 
+  const removeSportFromSportList = (item: string) => {
+    // Remove item from sport list
+    savedSportList.splice(savedSportList.indexOf(item), 1);
+    this.setState({ savedSportList: savedSportList });
   }
 
   return (
@@ -37,17 +47,31 @@ const SportListSettingsScreen = () => {
         />
         <CustomButton
           text="Ajouter"
-          onPress={handleSportListChange}
+          onPress={addSportToSportList}
         />
       </View>
-      <View>
-        //Display saved sport list
+      <View style={styles.container}>
         <FlatList
           data={savedSportList}
-          renderItem={({ item }) => <Text>{item}</Text>}
+          renderItem={({ item }) => {
+            return (
+              <View style={styles.row}>
+                <View>
+                  <Text style={styles.rowTitle}>{item}</Text>
+                </View>
+                <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={() => { removeSportFromSportList(item); }}>
+                  <Image
+                    source={require('../../../assets/images/times-solid.png')}
+                    resizeMode="contain"
+                    style={styles.rowIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+            );
+          }}
         />
       </View>
-    </View>
+    </View >
   );
 };
 
@@ -70,5 +94,27 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 20,
     marginHorizontal: 20,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 20,
+    marginHorizontal: 20,
+    borderBottomWidth: 1,
+    borderColor: 'lightgray'
+  },
+  rowTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: '#8d8d8d',
+  },
+  rowSubtitle: {
+    fontSize: 16,
+    color: '#8d8d8d',
+  },
+  rowIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#8d8d8d',
   },
 });

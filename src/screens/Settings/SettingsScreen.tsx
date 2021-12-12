@@ -215,8 +215,8 @@ const styles = StyleSheet.create({
         color: '#8d8d8d',
     },
     rowIcon: {
-        width: 15,
-        height: 15,
-        tintColor: '#748c94',
+        width: 20,
+        height: 20,
+        tintColor: '#8d8d8d',
     },
 });
