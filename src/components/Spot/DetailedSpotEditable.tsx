@@ -1,10 +1,8 @@
 import React, {useState} from "react";
 import {Text, Image, StyleSheet, ScrollView, TextInput} from "react-native";
 import {CustomButton, StyleType} from "../CustomButton/CustomButton";
-import {CommonActions} from "@react-navigation/native";
 import {Custompicker} from "../CustomPicker/CustomPicker";
 import FirebaseRequest from "../../API/spotAPI";
-import SpotClass from "../../models/Spot";
 
 const api = new FirebaseRequest()
 
@@ -15,6 +13,10 @@ interface DetailedSpotType {
 const DetailedSpotEditable = ({ route }: DetailedSpotType) => {
 
     const [spot, setSpot] = useState<any>(route.params.spot);
+
+    const [image, setImage] = useState<string>(spot.image);
+    const [desc, setDesc] = useState<string>(spot.description);
+    const [longDesc, setLongDesc] = useState<string>(spot.longDescription);
 
     const [spotSport, setSpotSport] = useState(spot.sport);
     const sportList =
@@ -32,9 +34,8 @@ const DetailedSpotEditable = ({ route }: DetailedSpotType) => {
             ["Other", "other"]];
 
     const onUpdateSpot = () => {
-        api.modifySport(spot.spotId, spotSport);
-        api.modifyDesc(spot.spotId, spot.spotDesc)
-        api.modifyLongDesc(spot.spotId, spot.spotLongDesc)
+        api.modifySpot(spot.id, spotSport, image, desc, longDesc);
+        console.log("image: " + image);
     }
 
     return (
@@ -45,7 +46,7 @@ const DetailedSpotEditable = ({ route }: DetailedSpotType) => {
             />
 
             <Text style={styles.time}>Lien de l'image</Text>
-            <TextInput style={styles.people} defaultValue={spot.image}/>
+            <TextInput style={styles.people} defaultValue={spot.image} onChangeText={setImage}/>
 
             <Text style={styles.time}>Sport</Text>
             <Custompicker
@@ -56,7 +57,7 @@ const DetailedSpotEditable = ({ route }: DetailedSpotType) => {
             />
 
             <Text style={styles.time}>Description courte</Text>
-            <TextInput style={styles.description} numberOfLines={2} defaultValue={spot.spotDesc}/>
+            <TextInput style={styles.description} numberOfLines={2} defaultValue={spot.spotDesc} onChangeText={setDesc}/>
 
             <Text style={styles.time}>
                 Créé par {spot.author}, le{' '}
@@ -68,7 +69,7 @@ const DetailedSpotEditable = ({ route }: DetailedSpotType) => {
             </Text>
 
             <Text style={styles.time}>Description longue</Text>
-            <TextInput style={styles.longDescription} defaultValue={spot.spotLongDesc}/>
+            <TextInput style={styles.longDescription} defaultValue={spot.spotLongDesc} onChangeText={setLongDesc}/>
 
             <CustomButton
                 text="Enregistrer"

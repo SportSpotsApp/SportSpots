@@ -5,6 +5,7 @@ import {FlatList, StyleSheet, Text, TextInput, View} from "react-native";
 import FirebaseRequest from "../../API/spotAPI";
 import auth from "@react-native-firebase/auth";
 import SpotClass from "../../models/Spot";
+import {useIsFocused} from "@react-navigation/core";
 
 const api = new FirebaseRequest()
 
@@ -12,9 +13,17 @@ const SpotPeople = () => {
     const [spots, setSpots] = useState<Spot[]>([]);
     const [inputText, setInputText] = useState('');
 
+    const isFocused = useIsFocused();
+
     useEffect(() => {
-        api.getSpotbyUser(auth().currentUser?.email as string).then((spots: Spot[]) => setSpots(spots));
-    }, []);
+        if(isFocused) {
+            console.log("okeee");
+            api.getSpotbyUser(auth().currentUser?.email as string).then((spots: Spot[]) => {
+                console.log(spots);
+                setSpots(spots)
+            });
+        }
+    }, [isFocused]);
 
     return (
         <View style={styles.container}>

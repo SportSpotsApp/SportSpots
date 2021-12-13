@@ -1,7 +1,6 @@
 import firebase from '@react-native-firebase/app';
 import firestore from '@react-native-firebase/firestore';
 import SpotClass from "../models/Spot"
-import ClassCoordinate from '../models/Coordinate';
 import Coordinate from '../models/Coordinate';
 
 export default class FirebaseRequest
@@ -30,87 +29,28 @@ export default class FirebaseRequest
     }
 
 
-    public async modifySpot(Id:String, modifiedImage:String,modifiedCityName:String, modifiedDesc:String, modifiedLongDesc:String,modifiedPostalCode:String,modifiedSport:String){
+    public async modifySpot(Id:String, modifiedSport:String, modifiedImage:String, modifiedDesc:String, modifiedLongDesc:String){
 
-        var snapshot = await firestore()
+        let snapshot = await firestore()
         .collection("Spots")
         .where('spotId','==', Id)
         .get()
 
         snapshot.forEach((doc) => {
-            firestore().collection("Spots").doc(doc.id).update({sport: modifiedSport});
-            firestore().collection("Spots").doc(doc.id).update({image: modifiedImage});
-            firestore().collection("Spots").doc(doc.id).update({spotCityName: modifiedCityName});
-            firestore().collection("Spots").doc(doc.id).update({spotDesc: modifiedDesc});
-            firestore().collection("Spots").doc(doc.id).update({spotLongDesc: modifiedLongDesc});
-            firestore().collection("Spots").doc(doc.id).update({spotPostalCode: modifiedPostalCode});
-        });
-    }
-
-    public async modifyDesc(Id:Number, modifiedDesc:String){
-
-        var snapshot = await firestore()
-        .collection("Spots")
-        .where('spotId','==', Id)
-        .get()
-
-        snapshot.forEach((doc) => {
-            firestore().collection("Spots").doc(doc.id).update({spotDesc: modifiedDesc});
-        });
-    }
-
-    public async modifyLongDesc(Id:Number, modifiedLongDesc:String){
-
-        var snapshot = await firestore()
-        .collection("Spots")
-        .where('spotId','==', Id)
-        .get()
-
-        snapshot.forEach((doc) => {
-            firestore().collection("Spots").doc(doc.id).update({spotLongDesc: modifiedLongDesc});
-        });
-    }
-
-    public async modifyCityName(Id:Number, modifiedCityName:String){
-
-        var snapshot = await firestore()
-        .collection("Spots")
-        .where('spotId','==', Id)
-        .get()
-
-        snapshot.forEach((doc) => {
-           firestore().collection("Spots").doc(doc.id).update({spotCityName: modifiedCityName});
-        });
-    }
-
-    public async modifyPostalCode(Id:Number, modifiedPostalCode:Number){
-
-        var snapshot = await firestore()
-        .collection("Spots")
-        .where('spotId','==', Id)
-        .get()
-
-        snapshot.forEach((doc) => {
-            firestore().collection("Spots").doc(doc.id).update({spotPostalCode: modifiedPostalCode});
-        });
-    }
-
-    public async modifySport(Id:Number, modifiedSport:String){
-
-        var snapshot = await firestore()
-        .collection("Spots")
-        .where('spotId','==', Id)
-        .get()
-
-        snapshot.forEach((doc) => {
-            firestore().collection("Spots").doc(doc.id).update({sport: modifiedSport});
+            console.log(Id, modifiedSport, modifiedImage, modifiedDesc, modifiedLongDesc);
+            firestore().collection("Spots").doc(doc.id).update({
+                sport: modifiedSport,
+                image: modifiedImage,
+                spotDesc: modifiedDesc,
+                spotLongDesc: modifiedLongDesc
+            });
         });
     }
 
     //GETTERS
     public async getSpotInRadius(position:Coordinate)
     {
-        var snapshot = await firestore()
+        let snapshot = await firestore()
         .collection("Spots")
         .orderBy("createAt")
         .get()
@@ -162,7 +102,7 @@ export default class FirebaseRequest
 
     public async getSpot(){
 
-        var snapshot = await firestore()
+        let snapshot = await firestore()
         .collection("Spots")
         .get()
 
@@ -184,7 +124,7 @@ export default class FirebaseRequest
 
     public async getSpotbySport(Sport:string){
 
-        var snapshot = await firestore()
+        let snapshot = await firestore()
         .collection("Spots")
         .where('sport','==', Sport)
         .get()
@@ -207,7 +147,7 @@ export default class FirebaseRequest
 
     public async getSpotbyPostalCode(Code:number){
 
-        var snapshot = await firestore()
+        let snapshot = await firestore()
         .collection("Spots")
         .where('spotPostalCode','==', Code)
         .get()
@@ -255,7 +195,7 @@ export default class FirebaseRequest
 
     public async getSpotbyCity(City:string) {
 
-        var snapshot = await firestore()
+        let snapshot = await firestore()
         .collection("Spots")
         .where('spotCityName','==', City)
         .get()
