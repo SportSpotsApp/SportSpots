@@ -6,15 +6,10 @@ interface ClassTypeProps {
     setValue: any;
     placeholder: any;
     secureTextEntry?: boolean;
+    multiline?: boolean;
 }
 
-export enum StyleType {
-    PRIMARY = "PRIMARY",
-    SECONDARY = "SECONDARY",
-    TERTIARY = "TERTIARY"
-}
-
-const CustomInput = ({ value, setValue, placeholder, secureTextEntry = false }: ClassTypeProps) => {
+const CustomInput = ({ value, setValue, placeholder, secureTextEntry = false, multiline = false }: ClassTypeProps) => {
     return (
         <View style={styles.container}>
             <TextInput
@@ -23,6 +18,7 @@ const CustomInput = ({ value, setValue, placeholder, secureTextEntry = false }: 
                 placeholder={placeholder}
                 style={styles.input}
                 secureTextEntry={secureTextEntry}
+                multiline={multiline}
             />
         </View>
     )

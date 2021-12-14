@@ -81,6 +81,7 @@ const PostScreen = ({ navigation }: any) => {
             placeholder="Description longue"
             value={spotLongDesc}
             setValue={setSpotLongDesc}
+            multiline={true}
         />
         <CustomInput
             placeholder="Code postal"
