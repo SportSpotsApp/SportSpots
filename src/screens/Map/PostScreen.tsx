@@ -9,6 +9,7 @@ import GetLocation, { Location } from 'react-native-get-location'
 import FirebaseRequest from '../../API/spotAPI';
 import auth from "@react-native-firebase/auth";
 import uuid from 'react-native-uuid'
+import { SportList } from '../../models/Sport';
 const db = new FirebaseRequest();
 
 const PostScreen = ({ navigation }: any) => {
@@ -46,20 +47,6 @@ const PostScreen = ({ navigation }: any) => {
         })
     }
 
-    const sportList = [
-        ["Football", "football"],
-        ["Basketball", "basketball"],
-        ["Volleyball", "volleyball"],
-        ["Tennis", "tennis"],
-        ["Handball", "handball"],
-        ["Badminton", "badminton"],
-        ["Hockey", "hockey"],
-        ["Baseball", "baseball"],
-        ["Cycling", "cycling"],
-        ["Running", "running"],
-        ["Swimming", "swimming"],
-        ["Other", "other"]];
-
     useEffect(() => {
         console.log("useEffect PotScreen");
         GetLocation.getCurrentPosition({
@@ -82,7 +69,7 @@ const PostScreen = ({ navigation }: any) => {
             value={spotSport}
             setValue={setSpotSport}
             mode="dropdown"
-            list={sportList}
+            list={SportList}
         />
         <CustomInput
             placeholder="Description courte"
