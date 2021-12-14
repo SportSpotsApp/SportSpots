@@ -1,9 +1,10 @@
-import React, {useState} from "react";
-import {Text, Image, StyleSheet, ScrollView, TextInput} from "react-native";
-import {CustomButton, StyleType} from "../CustomButton/CustomButton";
-import {Custompicker} from "../CustomPicker/CustomPicker";
+import React, { useState } from "react";
+import { Text, Image, StyleSheet, ScrollView, TextInput } from "react-native";
+import { CustomButton, StyleType } from "../CustomButton/CustomButton";
+import { CustomPicker } from "../CustomPicker/CustomPicker";
 import FirebaseRequest from "../../API/spotAPI";
-import {CommonActions, useNavigation} from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
+import { SportList } from "../../models/Sport";
 
 const api = new FirebaseRequest()
 
@@ -22,19 +23,6 @@ const DetailedSpotEditable = ({ route }: DetailedSpotType) => {
     const [longDesc, setLongDesc] = useState(spot.longDescription);
 
     const [spotSport, setSpotSport] = useState(spot.sport);
-    const sportList =
-        [["Football", "football"],
-            ["Basketball", "basketball"],
-            ["Volleyball", "volleyball"],
-            ["Tennis", "tennis"],
-            ["Handball", "handball"],
-            ["Badminton", "badminton"],
-            ["Hockey", "hockey"],
-            ["Baseball", "baseball"],
-            ["Cycling", "cycling"],
-            ["Running", "running"],
-            ["Swimming", "swimming"],
-            ["Other", "other"]];
 
     const onUpdateSpot = () => {
         console.log("image: " + longDesc);
@@ -53,23 +41,23 @@ const DetailedSpotEditable = ({ route }: DetailedSpotType) => {
     return (
         <ScrollView style={styles.container}>
             <Image
-                source={{uri: spot.image}}
+                source={{ uri: spot.image }}
                 style={styles.image}
             />
 
             <Text style={styles.time}>Lien de l'image</Text>
-            <TextInput style={styles.people} defaultValue={spot.image} onChangeText={setImage}/>
+            <TextInput style={styles.people} defaultValue={spot.image} onChangeText={setImage} />
 
             <Text style={styles.time}>Sport</Text>
-            <Custompicker
+            <CustomPicker
                 value={spotSport}
                 setValue={setSpotSport}
                 mode="dropdown"
-                list={sportList}
+                list={SportList}
             />
 
             <Text style={styles.time}>Description courte</Text>
-            <TextInput style={styles.description} numberOfLines={2} defaultValue={spot.spotDesc} onChangeText={setDesc}/>
+            <TextInput style={styles.description} numberOfLines={2} defaultValue={spot.spotDesc} onChangeText={setDesc} />
 
             <Text style={styles.time}>
                 Créé par {spot.author}, le{' '}
@@ -81,7 +69,7 @@ const DetailedSpotEditable = ({ route }: DetailedSpotType) => {
             </Text>
 
             <Text style={styles.time}>Description longue</Text>
-            <TextInput style={styles.longDescription} defaultValue={spot.spotLongDesc} onChangeText={setLongDesc}/>
+            <TextInput style={styles.longDescription} defaultValue={spot.spotLongDesc} onChangeText={setLongDesc} />
 
             <CustomButton
                 text="Enregistrer"
