@@ -21,8 +21,8 @@ root = tree.getroot()
 
 # Write the data to a js file
 file = codecs.open(os.path.join(__location__, "Sport.ts"), "w", "utf-8")
-file.write("export const Sport = [\n")
+file.write("export const SportList: string[][] = [\n")
 for child in root:
-    file.write('\t["' + child.text + '"], ["' + cammelCaseFormat(child.text) + '"],\n')
+    file.write('\t["' + child.text + '", "' + child.text + '"],\n')
 file.write("];")
 file.close()

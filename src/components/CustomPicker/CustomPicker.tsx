@@ -15,14 +15,14 @@ export enum StyleType {
     TERTIARY = "TERTIARY"
 }
 
-export const Custompicker = ({ value, setValue, mode, list }: ClassTypeProps) => {
+export const CustomPicker = ({ value, setValue, mode, list }: ClassTypeProps) => {
     return (
         <View style={styles.container}>
             <Picker
                 selectedValue={value}
                 onValueChange={(itemValue, itemIndex) => setValue(itemValue)}
                 mode={mode}>
-                {list.map((item => <Picker.Item label={item[0]} value={item[1]} key={item[0]}/>))}
+                {list.map((item => <Picker.Item label={item[0]} value={item[1]} key={item[0]} />))}
             </Picker>
         </View >
     )
