@@ -1,12 +1,12 @@
-import React, {createRef, useCallback, useEffect, useRef, useState} from 'react';
+import React, { createRef, useCallback, useEffect, useRef, useState } from 'react';
 import { FlatList, useWindowDimensions, View, Animated } from 'react-native';
-import MapView, {Coordinate, PROVIDER_GOOGLE, Region} from 'react-native-maps';
-import GetLocation, {Location} from 'react-native-get-location'
+import MapView, { Coordinate, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import GetLocation, { Location } from 'react-native-get-location'
 import CustomMarker from "../../components/Map/CustomMarker";
 import SpotCarrousel from "../../components/Spot/SpotCarrousel";
 import Spot from '../../models/Spot';
 import FirebaseRequest from '../../API/spotAPI';
-import {useIsFocused} from "@react-navigation/core";
+import { useIsFocused } from "@react-navigation/core";
 const api = new FirebaseRequest()
 
 const MapScreen = () => {
@@ -33,9 +33,9 @@ const MapScreen = () => {
     }, [spots]);
 
     useEffect(() => {
-        if(!isFocused) return;
+        if (!isFocused) return;
 
-        if(!initialUserRegion) {
+        if (!initialUserRegion) {
             GetLocation.getCurrentPosition({
                 enableHighAccuracy: true,
                 timeout: 20000,
@@ -49,10 +49,10 @@ const MapScreen = () => {
                 })
                 onRegionChange()
             })
-            .catch(error => {
-                const { code, message } = error;
-                console.warn(code, message);
-            })
+                .catch(error => {
+                    const { code, message } = error;
+                    console.warn(code, message);
+                })
         }
 
         api.getSpots()
@@ -73,28 +73,25 @@ const MapScreen = () => {
     const onRegionChange = () => {
         map.current?.getMapBoundaries().then(mapB => {
             const spotsDisplayed = spots.filter(spot => {
-                const maxDistance = calcCrow(mapB.southWest.latitude, mapB.southWest.longitude, mapB.northEast.latitude, mapB.northEast.longitude);
-                const distanceNorthEst = calcCrow(spot.latitude, spot.longitude, mapB.southWest.latitude, mapB.southWest.longitude);
-                const distanceSouthWest = calcCrow(spot.latitude, spot.longitude, mapB.northEast.latitude, mapB.northEast.longitude);
-                console.log(spot.sport + " - " + distanceNorthEst + " - " + distanceSouthWest + " - maxD: " + (maxDistance));
-                return (distanceNorthEst + distanceSouthWest) <= (maxDistance*1.35);
+                const maxDistance = haversineDistance(mapB.southWest.latitude, mapB.southWest.longitude, mapB.northEast.latitude, mapB.northEast.longitude);
+                const distanceNorthEst = haversineDistance(spot.latitude, spot.longitude, mapB.southWest.latitude, mapB.southWest.longitude);
+                const distanceSouthWest = haversineDistance(spot.latitude, spot.longitude, mapB.northEast.latitude, mapB.northEast.longitude);
+                return (distanceNorthEst + distanceSouthWest) <= (maxDistance * 1.35);
             })
-
-            console.log("Displayed => " + spotsDisplayed.length);
             setSpotsDisplayed(spotsDisplayed);
         })
     };
 
-    const calcCrow = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
         const R = 6371;
-        const dLat = toRad(lat2-lat1);
-        const dLon = toRad(lon2-lon1);
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
         lat1 = toRad(lat1);
         lat2 = toRad(lat2);
 
-        let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
-        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         let d = R * c;
         return d;
     }
@@ -103,11 +100,11 @@ const MapScreen = () => {
     return (
         <View style={{ flex: 1 }}>
             <MapView style={{ flex: 1 }}
-                     initialRegion={initialUserRegion}
-                     onRegionChangeComplete={onRegionChange}
-                     ref={map}
-                     provider={PROVIDER_GOOGLE}
-                     showsUserLocation
+                initialRegion={initialUserRegion}
+                onRegionChangeComplete={onRegionChange}
+                ref={map}
+                provider={PROVIDER_GOOGLE}
+                showsUserLocation
             >
                 {spots.map(spot => (
                     <CustomMarker
