@@ -21,7 +21,6 @@ const MapScreen = () => {
 
     const viewConfig = useRef({ itemVisiblePercentThreshold: 30 })
 
-    console.log("MapScreen");
     useEffect(() => {
         if (!selectedPlaceId || !flatList) return;
         const index = spotsDisplayed.findIndex(spot => spot.id === selectedPlaceId);
@@ -40,7 +39,6 @@ const MapScreen = () => {
                 enableHighAccuracy: true,
                 timeout: 20000,
             }).then((location: Location) => {
-                console.log("userRegionSet");
                 setInitialUserRegion({
                     latitude: location.latitude,
                     longitude: location.longitude,
@@ -63,7 +61,6 @@ const MapScreen = () => {
     }, [isFocused]);
 
     const onViewChanged = useRef(({ viewableItems, changed }: any) => {
-        console.log(changed);
         if (viewableItems.length > 0) {
             const selectedPlace = viewableItems[0].item;
             setSelectedPlaceId(selectedPlace.id)

@@ -13,7 +13,6 @@ const SpotComponent = ({ spot, canEdit = false }: SpotType) => {
     const navigation = useNavigation();
 
     const goToDetailedActivityPage = () => {
-        console.log("bjr je suis la", spot);
         if(canEdit){
             navigation.dispatch(
                 CommonActions.navigate({

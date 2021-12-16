@@ -47,35 +47,6 @@ export default class FirebaseRequest
         });
     }
 
-    //GETTERS
-    public async getSpotInRadius(position:Coordinate)
-    {
-        let snapshot = await firestore()
-        .collection("Spots")
-        .orderBy("createAt")
-        .get()
-
-        snapshot.forEach((doc) => {
-
-            let Spot = new SpotClass(doc.data().spotId,
-                doc.data().sport,
-                doc.data().spotDesc,
-                doc.data().spotLongDesc,
-                doc.data().spotPostalCode,
-                doc.data().spotCityName,
-                doc.data().author,
-                doc.data().image,
-                doc.data().latitude,
-                doc.data().longitude
-            )
-            this.Output.push(Spot);
-
-            this.Output = position.distanceFilter(this.Output,50,20);
-
-        });
-
-    }
-
     public getSpots(): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             firestore()
