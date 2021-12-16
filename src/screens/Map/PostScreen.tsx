@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet, Alert} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { CustomButton } from '../../components/CustomButton/CustomButton';
@@ -29,26 +29,35 @@ const PostScreen = ({ navigation }: any) => {
             return;
         }
 
-        db.addSpot(new SpotClass(
-            uuid.v4() as string,
-            spotSport,
-            spotDesc,
-            spotLongDesc,
-            parseInt(spotPostalCode),
-            spotCityName,
-            String(auth().currentUser?.email),
-            spotImage,
-            location.latitude,
-            location.longitude
-        )).then(() => {
-            navigation.navigate('Map');
-        }).catch(error => {
-            setError(error.message);
-        })
+        if (!spotSport || !spotDesc || !spotLongDesc || !spotPostalCode || !spotCityName || !spotImage) {
+            setError("Veuillez renseigner tous les champs");
+        }
+        else {
+            let regPostalCode = /^(?:[0-8]\d|9[0-8])\d{3}$/;
+            if (!regPostalCode.test(spotPostalCode)) {
+                setError("Veillez renseigner un code postal valide")
+                return;
+            }
+            db.addSpot(new SpotClass(
+                uuid.v4() as string,
+                spotSport,
+                spotDesc,
+                spotLongDesc,
+                parseInt(spotPostalCode),
+                spotCityName,
+                String(auth().currentUser?.email),
+                spotImage,
+                location.latitude,
+                location.longitude
+            )).then(() => {
+                navigation.navigate('Map');
+            }).catch(error => {
+                setError(error.message);
+            })
+        }
     }
 
     useEffect(() => {
-        console.log("useEffect PotScreen");
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 20000,
