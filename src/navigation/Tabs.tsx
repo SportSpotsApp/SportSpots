@@ -80,7 +80,7 @@ const Tabs = () => {
                         />
                         <Text
                             style={{ color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10, }}>
-                            Find
+                            Activités
                         </Text>
                     </View>
                 ),
@@ -143,7 +143,7 @@ const Tabs = () => {
                         />
                         <Text
                             style={{ color: focused ? '#0f7eaa' : '#748c94', fontSize: 12, marginBottom: 10, }}>
-                            Settings
+                            Paramètres
                         </Text>
                     </View>
                 ),
