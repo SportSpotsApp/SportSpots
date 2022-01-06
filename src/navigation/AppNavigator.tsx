@@ -37,11 +37,9 @@ const CustomTabBarButton = ({ children, onPress }: any) => (
     </TouchableOpacity>
 );
 
-const Tabs = () => {
+const AppNavigator = () => {
     return (
-
         <Tab.Navigator initialRouteName="HomeNavigator" screenOptions={{ tabBarActiveTintColor: '#e91e63' }}>
-
             <Tab.Screen name="HomeNavigator" component={HomeNavigator} options={{
                 tabBarShowLabel: false,
                 headerShown: false,
@@ -166,4 +164,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Tabs;
+export default AppNavigator;

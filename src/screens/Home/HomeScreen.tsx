@@ -1,10 +1,14 @@
 import React from "react";
 import {View, Text, StyleSheet, Image, ImageBackground, Pressable} from "react-native";
 import {CommonActions, useNavigation} from "@react-navigation/native";
+import {useSelector} from "react-redux";
 
 const HomeScreen = () => {
 
     const navigation = useNavigation();
+    const state = useSelector((state) => state);
+
+    console.log(state);
 
     const loginPressed = () => {
         navigation.dispatch(

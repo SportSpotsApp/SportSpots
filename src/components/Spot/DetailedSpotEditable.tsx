@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { Text, Image, StyleSheet, ScrollView, TextInput } from "react-native";
-import { CustomButton, StyleType } from "../CustomButton/CustomButton";
-import { CustomPicker } from "../CustomPicker/CustomPicker";
-import FirebaseRequest from "../../API/spotAPI";
+import { CustomButton, StyleType } from "../Form/CustomButton/CustomButton";
+import { CustomPicker } from "../Form/CustomPicker/CustomPicker";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { SportList } from "../../models/Sport";
-
-const api = new FirebaseRequest()
 
 interface DetailedSpotType {
     route: any;
@@ -26,16 +23,6 @@ const DetailedSpotEditable = ({ route }: DetailedSpotType) => {
 
     const onUpdateSpot = () => {
         console.log("image: " + longDesc);
-        api.modifySpot(spot.id, spotSport, image, desc, longDesc).then(r => navigation.dispatch(
-            CommonActions.navigate({
-                name: 'MySpots',
-                params: {
-                    headerLeft: null,
-                    gestureEnabled: false,
-                    spot: spot,
-                },
-            })
-        ));
     }
 
     return (

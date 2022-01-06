@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, Alert } from "react-native";
-import CustomInput from "../../components/CustomInput/CustomInput";
-import { StyleType, CustomButton } from "../../components/CustomButton/CustomButton";
-import SocialSignInButtons from "../../components/CustomButton/SocialSignInButtons";
+import CustomInput from "../../components/Form/CustomInput/CustomInput";
+import { StyleType, CustomButton } from "../../components/Form/CustomButton/CustomButton";
 import { CommonActions, useNavigation } from "@react-navigation/native";
-
-import auth from "@react-native-firebase/auth";
+import {Actions} from "../../store/ducks/auth";
+import {useDispatch, useSelector} from "react-redux";
 
 export const SignInScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const errorDetail = useSelector(state => state.auth.errorDetail);
+
+    const dispatch = useDispatch();
+
     const { height } = useWindowDimensions();
     const navigation = useNavigation();
 
     const [errorMessage, setError] = useState("");
+
+    useEffect(() => {
+        if(errorDetail !== undefined && errorDetail.message !== null) setError(errorDetail.message);
+    }, [errorMessage]);
 
     const onSignInPressed = () => {
         // validate user
@@ -27,20 +34,11 @@ export const SignInScreen = () => {
                 setError("Veillez renseigner un email valide")
                 return;
             }
-            auth().signInWithEmailAndPassword(email, password)
-                .then((userCredentials: any) => {
-                    const user = userCredentials.user;
-                    navigation.dispatch(
-                        CommonActions.navigate({
-                            name: 'Menu',
-                            params: {
-                                headerLeft: null,
-                                gestureEnabled: false,
-                            },
-                        })
-                    );
-                })
-                .catch((error => setError(error.message)))
+
+            dispatch(Actions.requestLoginRequest({
+                username: email,
+                password
+            }));
         }
     }
 
@@ -76,7 +74,7 @@ export const SignInScreen = () => {
                     resizeMode="contain"
                 />
 
-                {!!errorMessage && <Text style={styles.text_error}> {errorMessage} </Text>}
+                {errorMessage.length > 0 && <Text style={styles.text_error}>{errorMessage}</Text>}
 
                 <CustomInput
                     placeholder="Email"

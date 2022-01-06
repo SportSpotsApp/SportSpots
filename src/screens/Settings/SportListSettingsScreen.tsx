@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert, TouchableOpacity, Image, FlatList } from 'react-native';
-import { CustomPicker } from '../../components/CustomPicker/CustomPicker';
-import { CustomButton } from '../../components/CustomButton/CustomButton';
+import { CustomPicker } from '../../components/Form/CustomPicker/CustomPicker';
+import { CustomButton } from '../../components/Form/CustomButton/CustomButton';
 import { SportList } from '../../models/Sport';
 
 const SportListSettingsScreen = () => {

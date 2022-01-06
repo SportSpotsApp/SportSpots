@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {View, Text, StyleSheet, Alert} from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import CustomInput from "../../components/CustomInput/CustomInput";
-import { CustomButton } from '../../components/CustomButton/CustomButton';
-import { CustomPicker } from '../../components/CustomPicker/CustomPicker';
-import SpotClass from '../../models/Spot';
+import CustomInput from "../../components/Form/CustomInput/CustomInput";
+import { CustomButton } from '../../components/Form/CustomButton/CustomButton';
+import { CustomPicker } from '../../components/Form/CustomPicker/CustomPicker';
 import GetLocation, { Location } from 'react-native-get-location'
-import FirebaseRequest from '../../API/spotAPI';
-import auth from "@react-native-firebase/auth";
-import uuid from 'react-native-uuid'
 import { SportList } from '../../models/Sport';
-const db = new FirebaseRequest();
 
 const PostScreen = ({ navigation }: any) => {
     const [spotSport, setSpotSport] = useState("football");
@@ -38,22 +33,6 @@ const PostScreen = ({ navigation }: any) => {
                 setError("Veillez renseigner un code postal valide")
                 return;
             }
-            db.addSpot(new SpotClass(
-                uuid.v4() as string,
-                spotSport,
-                spotDesc,
-                spotLongDesc,
-                parseInt(spotPostalCode),
-                spotCityName,
-                String(auth().currentUser?.email),
-                spotImage,
-                location.latitude,
-                location.longitude
-            )).then(() => {
-                navigation.navigate('Map');
-            }).catch(error => {
-                setError(error.message);
-            })
         }
     }
 

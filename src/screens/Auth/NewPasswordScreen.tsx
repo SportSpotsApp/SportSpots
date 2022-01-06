@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet, ScrollView} from "react-native";
-import CustomInput from "../../components/CustomInput/CustomInput";
-import { StyleType, CustomButton } from "../../components/CustomButton/CustomButton";
-import SocialSignInButtons from "../../components/CustomButton/SocialSignInButtons";
+import CustomInput from "../../components/Form/CustomInput/CustomInput";
+import { StyleType, CustomButton } from "../../components/Form/CustomButton/CustomButton";
 import {CommonActions, useNavigation} from "@react-navigation/native";
 
 export const NewPasswordScreen = () => {

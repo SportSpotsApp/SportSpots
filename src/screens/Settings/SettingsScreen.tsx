@@ -3,9 +3,13 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert, Lin
 import auth from "@react-native-firebase/auth";
 import Slider from "react-native-slider";
 import { CommonActions, useNavigation } from '@react-navigation/native'
+import {useDispatch} from "react-redux";
+import { Actions as AuthActions } from '../../store/ducks/auth';
 
 const SettingsScreen = () => {
     const navigation = useNavigation()
+
+    const dispatch = useDispatch();
 
     const [notificationRadius, setNotificationRadius] = useState(0);
 
@@ -210,6 +214,14 @@ const SettingsScreen = () => {
                         resizeMode="contain"
                         style={styles.rowIcon}
                     />
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.row} onPress={() => { dispatch(AuthActions.requestLogout()) }}>
+                <View>
+                    <Text style={styles.rowTitle}>
+                        Se déconnecter
+                    </Text>
                 </View>
             </TouchableOpacity>
         </ScrollView >

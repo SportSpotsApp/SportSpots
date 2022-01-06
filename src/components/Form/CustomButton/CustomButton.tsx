@@ -1,28 +1,42 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable, GestureResponderEvent, ColorValue, useColorScheme } from 'react-native';
+import colors from '../../../theme/colors';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Pressable,
+    GestureResponderEvent,
+    ColorValue,
+    useColorScheme,
+    TouchableOpacity
+} from 'react-native';
 
 interface ClassTypeProps {
     onPress: (event: GestureResponderEvent) => void;
     text: string;
     type?: StyleType;
     bgColor?: ColorValue;
-    fgColor?: ColorValue
+    fgColor?: ColorValue,
+    style?: object
 }
 
 export enum StyleType {
     PRIMARY = "PRIMARY",
     SECONDARY = "SECONDARY",
-    TERTIARY = "TERTIARY"
+    TERTIARY = "TERTIARY",
+    LIGHT = "LIGHT"
 }
 
-export const CustomButton = ({ onPress, text, type = StyleType.PRIMARY, bgColor, fgColor }: ClassTypeProps) => {
+export const CustomButton = ({ onPress, text, type = StyleType.PRIMARY, bgColor, fgColor, style }: ClassTypeProps) => {
     return (
-        <Pressable
+        <TouchableOpacity
+            activeOpacity={0.7}
             onPress={onPress}
             style={[
                 styles.container,
                 styles[`container_${type}`],
-                bgColor && { backgroundColor: bgColor }
+                bgColor && { backgroundColor: bgColor },
+                style
             ]}>
             <Text
                 style={[
@@ -32,33 +46,38 @@ export const CustomButton = ({ onPress, text, type = StyleType.PRIMARY, bgColor,
                 ]}>
                 {text}
             </Text>
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 
 const styles: { [key: string]: any; } = StyleSheet.create({
     container: {
+        backgroundColor: colors.primary,
         width: '100%',
-        padding: 15,
-        marginVertical: 5,
+        display: 'flex',
         alignItems: 'center',
-        borderRadius: 5,
+        justifyContent: 'center',
+        height: 60,
+        marginVertical: 5,
+        borderRadius: 16,
+        borderColor: "red",
+        borderWith: 1.5
     },
-
     container_PRIMARY: {
-        backgroundColor: '#0f7eaa',
+        backgroundColor: colors.primary,
     },
-
     container_SECONDARY: {
         borderColor: '#0f7eaa',
         borderWidth: 2,
     },
-
     container_TERTIARY: {
 
     },
-
+    container_LIGHT: {
+        backgroundColor: colors.white,
+    },
     text: {
+        fontSize: 18,
         fontWeight: 'bold',
         color: 'white',
     },

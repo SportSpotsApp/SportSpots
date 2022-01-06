@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
-import CustomInput from "../../components/CustomInput/CustomInput";
-import { CustomButton } from '../../components/CustomButton/CustomButton';
+import CustomInput from "../../components/Form/CustomInput/CustomInput";
+import { CustomButton } from '../../components/Form/CustomButton/CustomButton';
 import auth from "@react-native-firebase/auth";
 import { CommonActions, useNavigation } from '@react-navigation/native'
 

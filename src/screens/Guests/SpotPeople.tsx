@@ -2,12 +2,9 @@ import React, {useEffect, useMemo, useState} from 'react';
 import Spot from "../../models/Spot";
 import SpotComponent from "../../components/Spot/SpotComponent";
 import {FlatList, StyleSheet, Text, TextInput, View} from "react-native";
-import FirebaseRequest from "../../API/spotAPI";
 import auth from "@react-native-firebase/auth";
 import SpotClass from "../../models/Spot";
 import {useIsFocused} from "@react-navigation/core";
-
-const api = new FirebaseRequest()
 
 const SpotPeople = () => {
     const [spots, setSpots] = useState<Spot[]>([]);
@@ -18,10 +15,6 @@ const SpotPeople = () => {
     useEffect(() => {
         if(isFocused) {
             console.log("okeee");
-            api.getSpotbyUser(auth().currentUser?.email as string).then((spots: Spot[]) => {
-                console.log(spots);
-                setSpots(spots)
-            });
         }
     }, [isFocused]);
 

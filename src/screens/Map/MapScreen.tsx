@@ -5,9 +5,7 @@ import GetLocation, { Location } from 'react-native-get-location'
 import CustomMarker from "../../components/Map/CustomMarker";
 import SpotCarrousel from "../../components/Spot/SpotCarrousel";
 import Spot from '../../models/Spot';
-import FirebaseRequest from '../../API/spotAPI';
 import { useIsFocused } from "@react-navigation/core";
-const api = new FirebaseRequest()
 
 const MapScreen = () => {
     const [spots, setSpots] = useState<Spot[]>([]);
@@ -52,12 +50,6 @@ const MapScreen = () => {
                     console.warn(code, message);
                 })
         }
-
-        api.getSpots()
-            .then((spots: Spot[]) => setSpots(spots))
-            .catch(error => {
-                console.log(error.message);
-            })
     }, [isFocused]);
 
     const onViewChanged = useRef(({ viewableItems, changed }: any) => {
